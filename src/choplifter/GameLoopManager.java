@@ -45,7 +45,7 @@ public class GameLoopManager {
                                 "      L       L \n" +
                                 "   LLLLL    L  \n" +
                                 "  LLLLLLLLLLL  \n" +
-                                " ";
+                                " WWWWW";
     }
     public void startGame() {
         gameView.addTextToCanvas("Oben links", 0, 0, 25, Color.YELLOW, 0);
