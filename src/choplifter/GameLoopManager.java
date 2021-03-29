@@ -2,39 +2,65 @@ package choplifter;
 import choplifter.GameView;
 import java.awt.Color;
 
+/**This class manages the main game loop of the game. */
 public class GameLoopManager {
     private GameView gameView;
-    private final Jet jet;
-
-    /*private String house;
+    private String house;
+    private String jet;
+    /*
     private String rightHelicopter;
     private String leftHelicopter;
     private String frontHelicopter;
-    private String rightJet;*/
+    */
 
+    /** Creates the main loop. */
     public GameLoopManager() {
         this.gameView = new GameView();
         this.gameView.setWindowTitle("Choplifter");
         this.gameView.setStatusText("Laura Helfrich - Java Programmierung SS 2021");
         this.gameView.setWindowIcon("WordHelicopter.png");
-        this.jet = new Jet(gameView);
 
-        /*this.house =
-                  "   W   \n"
-                + "  WOW  \n"
-                + " WOOOW \n"
-                + "WOOOOOW\n"
-                + "WWWWWWW\n"
-                + "WOOOOOW\n"
-                + "WOOOOOW\n"
-                + "WOOOOOW\n"
-                + "WWWWWWW\n";*/
+        this.house =
+                "   W   \n" +
+                "  WOW  \n" +
+                " WOOOW \n" +
+                "WOOOOOW\n" +
+                "WWWWWWW\n" +
+                "WOOOOOW\n" +
+                "WOOOOOW\n" +
+                "WOOOOOW\n" +
+                "WWWWWWW";
 
-        /*this.rightHelicopter =
-                "        W        \n" +
+        this.jet =
+                    " LLLL                                           \n" +
+                    " LaaLLLL                                        \n" +
+                    " LaaaLAAL                                       \n" +
+                    " LaaaLAAAL                                      \n" +
+                    " LaaaaLAAL                                      \n" +
+                    " LaaaaLLAAL                                     \n" +
+                    " LaaaaaLAAAL                                    \n" +
+                    " LaaaaaLLLAAL                   LLLLL           \n" +
+                    " LaaaaaaaLAAAL               LLLLdddLLL         \n" +
+                    "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLddddddddLL        \n" +
+                    "LDDDDDDDDDDDDDDDDDDDDDDDDDDDDLLLLLddddLL        \n" +
+                    "LeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeLLLdddLL       \n" +
+                    "LEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEELLLLLLLL     \n" +
+                    "LfffffffffffffffffffffffffffffffffffffffffL     \n" +
+                    "LEEEEEEEEEEELLLLLLLLLLLLLLLLLLLEEEEEEEEEEEEEL   \n" +
+                    "LeeeeeeeeeeeeLFFFFFFFFFFFFFFFLeeeeeeeeeeeeeeeeeL\n" +
+                    "LDDDDDDDDDDDDDLLLLLLLLLLLLLLLDDDDDDDDDDDDDDLLLLL\n" +
+                    "  LaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaLLLLL     \n" +
+                    "  LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL         \n";
+
+        /**
+         * BlockImage helicopter in three different perspectives
+         * */
+        /*
+        this.rightHelicopter =
+                "        W      \n" +
                 "  WWWWWWWWWWWWW\n" +
                 "W       W      \n" +
-                " W       W      \n" +
+                " W       W     \n" +
                 "  W    WWWWW   \n" +
                 "  WWWWWWWWWWW  \n" +
                 "  W   WWWWWLLW \n" +
@@ -46,7 +72,7 @@ public class GameLoopManager {
                 "     WWWWWWWWW \n";
 
         this.leftHelicopter =
-                         "      W        \n" +
+                        "      W        \n" +
                         "WWWWWWWWWWWWW  \n" +
                         "      W       W\n" +
                         "     W       W \n" +
@@ -73,19 +99,18 @@ public class GameLoopManager {
                 "    WWWWWWW    \n" +
                 "     WWWWW     \n" +
                 "    W     W    \n" +
-                "   W       W   \n";*/
+                "   W       W   \n";
+                */
 
 
     }
+    /** Starts the main loop of the game. */
     public void startGame() {
-        while(true) {
-            jet.updatePosition();
-            jet.addToCanvas();
-            gameView.printCanvas();
-        }
-
+        /**
+         * object references
+         * */
         //Text
-        /*gameView.addTextToCanvas("Oben links", 0, 0, 25, Color.YELLOW, 0);
+        gameView.addTextToCanvas("Oben links", 0, 0, 25, Color.YELLOW, 0);
         gameView.addTextToCanvas("Unten rechts", 660, 515, 25, Color.YELLOW, 0);
         //Lines
         gameView.addLineToCanvas(0, 50, 960, 50, 5, Color.RED);
@@ -105,15 +130,25 @@ public class GameLoopManager {
         gameView.addBlockImageToCanvas(house, 250, 250, 10, 45);
         gameView.addBlockImageToCanvas(house, 350, 250, 10, 90);
         gameView.addBlockImageToCanvas(house, 450, 250, 5, 0);
+        gameView.setColorForBlockImage('d', new Color(64, 195, 255));
+        gameView.setColorForBlockImage('A', new Color(74, 20, 140));
+        gameView.setColorForBlockImage('a', new Color(105, 27, 145));
+        gameView.setColorForBlockImage('D', new Color(123, 31, 162));
+        gameView.setColorForBlockImage('e', new Color(141, 36, 170));
+        gameView.setColorForBlockImage('E', new Color(156, 39, 176));
+        gameView.setColorForBlockImage('f', new Color(255, 190, 231));
+        gameView.setColorForBlockImage('F', new Color(186, 104, 200));
+        /*
+        gameView.addBlockImageToCanvas(jet,400, 300, 2, 0);
         gameView.addBlockImageToCanvas(rightHelicopter, 600, 250, 5, 45);
         gameView.addBlockImageToCanvas(leftHelicopter, 700, 300, 5, 0);
         gameView.addBlockImageToCanvas(frontHelicopter, 800, 360, 5, 0);
-        gameView.addBlockImageToCanvas(rightJet, 400, 300, 5, 0);
+        */
         //Images
         gameView.addImageToCanvas("Herz.png", 200, 400, 1.3, 0);
         gameView.addImageToCanvas("Herz.png", 300, 400, 0.8, 90);
         gameView.addImageToCanvas("Jet3.png", 770, 300, 2.5, 0);
 
-        gameView.printCanvas();*/
+        gameView.printCanvas();
     }
 }

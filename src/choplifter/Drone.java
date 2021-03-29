@@ -1,15 +1,16 @@
 package choplifter;
-
-import javax.swing.*;
 import java.awt.*;
 
-/** Represents a jet in the game.*/
-public class Jet {
+/**
+ * Represents a drone in the game.
+ */
+public class Drone {
     private final double size;
     private final double width;
     private final double height;
 
     private double speedInPixel;
+    private boolean flyFromLeftToRight;
     private double rotation;
     private int bullets;
     private int takenDamage;
@@ -18,28 +19,29 @@ public class Jet {
     private Position position;
 
     /**
-     * Creates a new Jet.
+     * Creates a new Drone.
      */
-    Jet(){
+    Drone(){
+        this.flyFromLeftToRight = true;
         this.destroyed = false;
-        this.speedInPixel = 2;
-        this.position = new Position(48, 300);
+        this.speedInPixel = 1;
+        this.position = new Position(48, 200);
         this.rotation = 0;
-        this.size = 2;
-        this.width = (int) (48 * size);
-        this.height = (int) (19 * size);
+        this.size = 1;
+        this.width = (int) (11 * size);
+        this.height = (int) (11 * size);
     }
 
     /**
-     * Moves the Jet.
+     * Moves the Drone.
      */
     public void updatePosition() {
-                position.right(speedInPixel);
+        position.right(speedInPixel);
     }
 
     /**
-     * Get the position of a jet.
-     * @return Current position of a jet.
+     * Get the position of a drone.
+     * @return Current position of a drone.
      * {@link Position}
      * @see Position
      */
@@ -47,20 +49,12 @@ public class Jet {
         return position;
     }
 
-    private void shoot() {
-
-    }
-
-    private void takeDamage() {
-
-    }
-
     /**
-     * Shows a summary of the core information of Jet.
+     * Shows a summary of the core information of Drone.
      * @return Returns the name of the class and the current position.
      */
     @Override
     public String toString() {
-        return "Jet: (" + "position=" + position + ")";
+        return "Drone: (" + "position=" + position + ")";
     }
 }
