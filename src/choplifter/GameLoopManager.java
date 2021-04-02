@@ -138,16 +138,16 @@ public class GameLoopManager {
         gameView.setColorForBlockImage('E', new Color(156, 39, 176));
         gameView.setColorForBlockImage('f', new Color(255, 190, 231));
         gameView.setColorForBlockImage('F', new Color(186, 104, 200));
-        /*
-        gameView.addBlockImageToCanvas(jet,400, 300, 2, 0);
-        gameView.addBlockImageToCanvas(rightHelicopter, 600, 250, 5, 45);
+
+        gameView.addBlockImageToCanvas(jet,770, 300, 2, 0);
+        /*gameView.addBlockImageToCanvas(rightHelicopter, 600, 250, 5, 45);
         gameView.addBlockImageToCanvas(leftHelicopter, 700, 300, 5, 0);
         gameView.addBlockImageToCanvas(frontHelicopter, 800, 360, 5, 0);
         */
         //Images
         gameView.addImageToCanvas("Herz.png", 200, 400, 1.3, 0);
         gameView.addImageToCanvas("Herz.png", 300, 400, 0.8, 90);
-        gameView.addImageToCanvas("Jet3.png", 770, 300, 2.5, 0);
+        /*gameView.addImageToCanvas("Jet3.png", 770, 300, 2.5, 0);*/
 
         gameView.printCanvas();
     }
