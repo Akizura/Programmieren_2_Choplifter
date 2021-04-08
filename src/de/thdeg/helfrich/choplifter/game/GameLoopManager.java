@@ -1,12 +1,18 @@
-package choplifter;
-import choplifter.GameView;
+package de.thdeg.helfrich.choplifter.game;
+import de.thdeg.helfrich.choplifter.gameview.GameView;
+import de.thdeg.helfrich.choplifter.graphics.*;
+
 import java.awt.Color;
 
 /**This class manages the main game loop of the game. */
 public class GameLoopManager {
-    private GameView gameView;
-    private String house;
-    private String jet;
+    private final GameView gameView;
+    private final Jet jet;
+    private final Drone drone;
+    private final Tank tank;
+    private final Barracks barracks;
+    private final Hostage hostage;
+
     /*
     private String rightHelicopter;
     private String leftHelicopter;
@@ -20,37 +26,11 @@ public class GameLoopManager {
         this.gameView.setStatusText("Laura Helfrich - Java Programmierung SS 2021");
         this.gameView.setWindowIcon("WordHelicopter.png");
 
-        this.house =
-                "   W   \n" +
-                "  WOW  \n" +
-                " WOOOW \n" +
-                "WOOOOOW\n" +
-                "WWWWWWW\n" +
-                "WOOOOOW\n" +
-                "WOOOOOW\n" +
-                "WOOOOOW\n" +
-                "WWWWWWW";
-
-        this.jet =
-                    " LLLL                                           \n" +
-                    " LaaLLLL                                        \n" +
-                    " LaaaLAAL                                       \n" +
-                    " LaaaLAAAL                                      \n" +
-                    " LaaaaLAAL                                      \n" +
-                    " LaaaaLLAAL                                     \n" +
-                    " LaaaaaLAAAL                                    \n" +
-                    " LaaaaaLLLAAL                   LLLLL           \n" +
-                    " LaaaaaaaLAAAL               LLLLdddLLL         \n" +
-                    "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLddddddddLL        \n" +
-                    "LDDDDDDDDDDDDDDDDDDDDDDDDDDDDLLLLLddddLL        \n" +
-                    "LeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeLLLdddLL       \n" +
-                    "LEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEELLLLLLLL     \n" +
-                    "LfffffffffffffffffffffffffffffffffffffffffL     \n" +
-                    "LEEEEEEEEEEELLLLLLLLLLLLLLLLLLLEEEEEEEEEEEEEL   \n" +
-                    "LeeeeeeeeeeeeLFFFFFFFFFFFFFFFLeeeeeeeeeeeeeeeeeL\n" +
-                    "LDDDDDDDDDDDDDLLLLLLLLLLLLLLLDDDDDDDDDDDDDDLLLLL\n" +
-                    "  LaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaLLLLL     \n" +
-                    "  LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL         \n";
+        this.jet = new Jet(gameView);
+        this.drone = new Drone(gameView);
+        this.tank = new Tank(gameView);
+        this.barracks = new Barracks(gameView);
+        this.hostage = new Hostage(gameView);
 
         /**
          * BlockImage helicopter in three different perspectives
@@ -106,10 +86,29 @@ public class GameLoopManager {
     }
     /** Starts the main loop of the game. */
     public void startGame() {
+        while(true) {
+            //Represents the ground
+            this.gameView.addRectangleToCanvas(0,440,960,100,5,true,Color.GRAY);
+
+            //Updates the positions of the GameObjects
+            jet.updatePosition();
+            drone.updatePosition();
+            tank.updatePosition();
+            hostage.updatePosition();
+
+            //Draws the GameObjects to the canvas
+            jet.addToCanvas();
+            drone.addToCanvas();
+            tank.addToCanvas();
+            barracks.addToCanvas();
+            hostage.addToCanvas();
+
+            gameView.printCanvas();
+        }
         /**
          * object references
          * */
-        //Text
+        /*//Text
         gameView.addTextToCanvas("Oben links", 0, 0, 25, Color.YELLOW, 0);
         gameView.addTextToCanvas("Unten rechts", 660, 515, 25, Color.YELLOW, 0);
         //Lines
@@ -124,31 +123,14 @@ public class GameLoopManager {
         gameView.addRectangleToCanvas(400, 70, 100, 50, 3, false, Color.YELLOW);
         gameView.addPolyLineToCanvas(new double[]{550.00, 650.00, 750.00, 850.00, 950.00}, new double[]{100.00, 150.00, 100.00, 150.00, 100.00}, 10, Color.GREEN);
         gameView.addPolygonToCanvas(new double[]{00.00, 480.00, 960.00},new double[] {200.00, 150.00, 200.00}, 5, true, Color.cyan );
-        //Blocks
-        gameView.addBlockImageToCanvas(house, 10, 250, 15, 0);
-        gameView.addBlockImageToCanvas(house, 150, 250, 10, 0);
-        gameView.addBlockImageToCanvas(house, 250, 250, 10, 45);
-        gameView.addBlockImageToCanvas(house, 350, 250, 10, 90);
-        gameView.addBlockImageToCanvas(house, 450, 250, 5, 0);
-        gameView.setColorForBlockImage('d', new Color(64, 195, 255));
-        gameView.setColorForBlockImage('A', new Color(74, 20, 140));
-        gameView.setColorForBlockImage('a', new Color(105, 27, 145));
-        gameView.setColorForBlockImage('D', new Color(123, 31, 162));
-        gameView.setColorForBlockImage('e', new Color(141, 36, 170));
-        gameView.setColorForBlockImage('E', new Color(156, 39, 176));
-        gameView.setColorForBlockImage('f', new Color(255, 190, 231));
-        gameView.setColorForBlockImage('F', new Color(186, 104, 200));
 
-        gameView.addBlockImageToCanvas(jet,770, 300, 2, 0);
-        /*gameView.addBlockImageToCanvas(rightHelicopter, 600, 250, 5, 45);
+        gameView.addBlockImageToCanvas(rightHelicopter, 600, 250, 5, 45);
         gameView.addBlockImageToCanvas(leftHelicopter, 700, 300, 5, 0);
         gameView.addBlockImageToCanvas(frontHelicopter, 800, 360, 5, 0);
-        */
+
         //Images
         gameView.addImageToCanvas("Herz.png", 200, 400, 1.3, 0);
         gameView.addImageToCanvas("Herz.png", 300, 400, 0.8, 90);
-        /*gameView.addImageToCanvas("Jet3.png", 770, 300, 2.5, 0);*/
-
-        gameView.printCanvas();
+        */
     }
 }

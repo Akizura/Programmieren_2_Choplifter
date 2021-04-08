@@ -1,4 +1,4 @@
-package choplifter;
+package de.thdeg.helfrich.choplifter.actions;
 
 /**
  * Represents the positions of the game objects.
@@ -18,7 +18,7 @@ public class Position {
      * @param x Represents a value on the X-coordinate.
      * @param y Represents a value on the Y-coordinate.
      */
-    Position(double x, double y){
+    public Position(double x, double y){
     this.x = x;
     this.y = y;
     }
