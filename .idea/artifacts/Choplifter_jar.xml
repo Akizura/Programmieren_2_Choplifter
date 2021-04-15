@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Choplifter:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Choplifter_jar</output-path>
+    <root id="archive" name="Programmieren 2.jar">
+      <element id="module-output" name="Programmieren 2" />
+      <element id="dir-copy" path="$PROJECT_DIR$/src/resources" />
+    </root>
+  </artifact>
+</component>

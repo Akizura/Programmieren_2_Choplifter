@@ -1,4 +1,4 @@
-package de.thdeg.helfrich.choplifter.graphics;
+package de.thdeg.helfrich.choplifter.gameobjects;
 
 import de.thdeg.helfrich.choplifter.actions.Position;
 import de.thdeg.helfrich.choplifter.gameview.GameView;
@@ -6,15 +6,15 @@ import de.thdeg.helfrich.choplifter.gameview.GameView;
 /**
  * Represents GameObjects in the game.
  */
-public class GameObject {
+abstract class GameObject {
     /**
      * Makes a connection to GameView.
      */
-    public GameView gameView;
+    protected GameView gameView;
     /**
      * Makes a connection to position.
      */
-    public Position position;
+    protected Position position;
     /**
      * Defines the speed of GameObjects.
      */
@@ -36,15 +36,15 @@ public class GameObject {
      */
     protected int height;
 
-    private int numberOfGameObjects;
-    private String gameObjectName;
+    protected int numberOfGameObjects;
+    protected String gameObjectName;
 
     /**
      * Creates a new GameObject.
      *
      * @param gameView GameView to show the GameObject on.
      */
-    public GameObject(GameView gameView) {
+    protected GameObject(GameView gameView) {
         this.gameView = gameView;
         this.position = new Position(0, 0);
     }
@@ -68,16 +68,17 @@ public class GameObject {
     /**
      * Updates the position of the GameObject.
      */
-    public void updatePosition() {
-    }
+    public abstract void updatePosition();
 
     /**
      * Draws the GameObject to the canvas.
      */
-    public void addToCanvas() {
-    }
+    public abstract void addToCanvas();
 
-    private void countGameObjects(){
+    /**
+     *Counts the GameObjects.
+     */
+    public void countGameObjects(){
 
     }
 

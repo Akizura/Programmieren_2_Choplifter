@@ -1,4 +1,4 @@
-package de.thdeg.helfrich.choplifter.graphics;
+package de.thdeg.helfrich.choplifter.gameobjects;
 
 import de.thdeg.helfrich.choplifter.actions.Position;
 import de.thdeg.helfrich.choplifter.gameview.GameView;

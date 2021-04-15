@@ -1,7 +1,6 @@
-package de.thdeg.helfrich.choplifter.screens;
+package de.thdeg.helfrich.choplifter.gameobjects;
 
 import de.thdeg.helfrich.choplifter.gameview.GameView;
-import de.thdeg.helfrich.choplifter.graphics.GameObject;
 
 /**
  * Represents the Background in the game.
