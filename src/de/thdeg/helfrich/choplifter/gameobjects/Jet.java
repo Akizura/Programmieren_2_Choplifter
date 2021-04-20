@@ -5,7 +5,7 @@ import de.thdeg.helfrich.choplifter.gameview.GameView;
 import java.awt.*;
 
 /** Represents a jet in the game.*/
-public class Jet extends GameObject{
+public class Jet extends Shooter{
 
     private final static String JET_RIGHT =
             " LLLL                                           \n" +
@@ -53,7 +53,6 @@ public class Jet extends GameObject{
     private int takenDamage;
     private boolean destroyed;
     private boolean moveFromLeftToRight;
-    private int shotsPerSecond;
 
     /**
      * Creates a new Jet.
@@ -70,7 +69,8 @@ public class Jet extends GameObject{
         super.speedInPixel = 2;
         this.moveFromLeftToRight = true;
         this.destroyed = false;
-        this.shotsPerSecond = 2;
+        super.shotsPerSecond = 2;
+        super.inRangeOfChopper = false;
         gameView.setColorForBlockImage('d', new Color(64, 195, 255));
         gameView.setColorForBlockImage('A', new Color(74, 20, 140));
         gameView.setColorForBlockImage('a', new Color(105, 27, 145));

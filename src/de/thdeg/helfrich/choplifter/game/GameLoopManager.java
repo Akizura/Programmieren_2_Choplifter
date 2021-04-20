@@ -14,6 +14,7 @@ public class GameLoopManager {
     private final Barracks barracks;
     private final Hostage hostage;
     private final Chopper chopper;
+    private static final boolean DIAGONALMOVEMENT = false;
 
     /*
     private String rightHelicopter;
@@ -34,27 +35,64 @@ public class GameLoopManager {
         this.barracks = new Barracks(gameView);
         this.hostage = new Hostage(gameView);
         this.chopper = new Chopper(gameView);
+
     }
 
     /**
      * This enables the user to take action.
      */
     public void updateUserInputs () {
-        Integer[] gedruekteTasten = gameView.getKeyCodesOfCurrentlyPressedKeys();
-        for (int keyCode : gedruekteTasten) {
-            if (keyCode == KeyEvent.VK_UP){
+        Integer[] pressedKeys = gameView.getKeyCodesOfCurrentlyPressedKeys();
+        if(DIAGONALMOVEMENT==true){
+            directions();
+        }
+        else{
+            if(DIAGONALMOVEMENT==false) {
+                for (int keyCode : pressedKeys) {
+                    if (keyCode == KeyEvent.VK_UP) {
+                        chopper.up();
+                        break;
+                    }
+                    if (keyCode == KeyEvent.VK_DOWN) {
+                        chopper.down();
+                        break;
+                    }
+                    if (keyCode == KeyEvent.VK_RIGHT) {
+                        chopper.right();
+                        break;
+                    }
+                    if (keyCode == KeyEvent.VK_LEFT) {
+                        chopper.left();
+                        break;
+                    }
+                    if (keyCode == KeyEvent.VK_SPACE) {
+                        chopper.shoot();
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * This manages the directions the user can move to.
+     */
+        public void directions() {
+        Integer[] pressedKeys = gameView.getKeyCodesOfCurrentlyPressedKeys();
+        for (int keyCode : pressedKeys) {
+            if (keyCode == KeyEvent.VK_UP) {
                 chopper.up();
             }
-            if (keyCode == KeyEvent.VK_DOWN){
+            if (keyCode == KeyEvent.VK_DOWN) {
                 chopper.down();
             }
-            if (keyCode == KeyEvent.VK_RIGHT){
+            if (keyCode == KeyEvent.VK_RIGHT) {
                 chopper.right();
             }
-            if (keyCode == KeyEvent.VK_LEFT){
+            if (keyCode == KeyEvent.VK_LEFT) {
                 chopper.left();
             }
-            if (keyCode == KeyEvent.VK_SPACE){
+            if (keyCode == KeyEvent.VK_SPACE) {
                 chopper.shoot();
             }
         }
@@ -66,7 +104,7 @@ public class GameLoopManager {
             //Updating the userinputs
             updateUserInputs();
 
-            //Represents the ground
+            //Represents the background
             this.gameView.addRectangleToCanvas(0,440,960,100,5,true,Color.GRAY);
 
             //Updates the positions of the GameObjects

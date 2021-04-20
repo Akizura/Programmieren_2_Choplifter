@@ -7,33 +7,13 @@ import de.thdeg.helfrich.choplifter.gameview.GameView;
  * Represents GameObjects in the game.
  */
 abstract class GameObject {
-    /**
-     * Makes a connection to GameView.
-     */
+
     protected GameView gameView;
-    /**
-     * Makes a connection to position.
-     */
     protected Position position;
-    /**
-     * Defines the speed of GameObjects.
-     */
     protected double speedInPixel;
-    /**
-     * Defines the size of GameObjects.
-     */
     protected double size;
-    /**
-     * Defines the degree of the rotation of GameObjects.
-     */
     protected double rotation;
-    /**
-     * Defines the width of a GameObject.
-     */
     protected int width;
-    /**
-     * Defines the height of a Game Object.
-     */
     protected int height;
 
     protected int numberOfGameObjects;

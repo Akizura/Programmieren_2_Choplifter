@@ -8,7 +8,7 @@ import java.awt.*;
 /**
  * Represents a tank in the game.
  */
-public class Tank extends GameObject{
+public class Tank extends Shooter{
 
     private final static String TANK_RIGHT =
             "                     nnKKKKKnKKKKKnnnnKWWKnK \n" +
@@ -74,6 +74,8 @@ public class Tank extends GameObject{
         super.speedInPixel = 0.5;
         this.flyFromLeftToRight = true;
         this.destroyed = false;
+        super.shotsPerSecond = 2;
+        super.inRangeOfChopper = false;
         gameView.setColorForBlockImage('K', new Color(94, 55, 40));
         gameView.setColorForBlockImage('n', new Color(84, 22, 7));
         gameView.setColorForBlockImage('N', new Color(112, 29, 8));

@@ -6,7 +6,7 @@ import de.thdeg.helfrich.choplifter.gameview.GameView;
 /**
  * Represents a hostage in the game.
  */
-public class Hostage extends GameObject{
+public class Hostage extends GameObject {
 
     private final static String HOSTAGE_RIGHT =
             "                         LLL          \n" +
@@ -160,7 +160,7 @@ public class Hostage extends GameObject{
         super.width = (int) (38 * size);
         super.height = (int) (42 * size);
         super.rotation = 0;
-        super.speedInPixel = 1;
+        super.speedInPixel = 0.6;
         this.flyFromLeftToRight = true;
         this.waiting = false;
         this.touchedByHelicopter = false;

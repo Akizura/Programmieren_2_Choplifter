@@ -11,7 +11,7 @@ public class Background extends GameObject {
      * Creates a background.
      * @param gameView
      */
-    Background(GameView gameView){
+    protected Background(GameView gameView){
         super(gameView);
     }
 

@@ -8,7 +8,7 @@ import java.awt.*;
 /**
  * Represents a Barracks in the game.
  */
-public class Barracks extends GameObject{
+public class Barracks extends GameObject {
 
     private final static String BARRACKS_CLOSED =
             "                    WWWWWWWWWW                    \n" +

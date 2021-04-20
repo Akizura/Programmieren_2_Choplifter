@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>de.thdeg.helfrich.choplifter</OriginalElement>
+  <nodes>
+    <node x="375.5" y="528.5">de.thdeg.helfrich.choplifter.gameobjects.Stars</node>
+    <node x="752.4935897435898" y="269.0">de.thdeg.helfrich.choplifter.gameobjects.Barracks</node>
+    <node x="416.5" y="666.0">de.thdeg.helfrich.choplifter.gameobjects.Tank</node>
+    <node x="229.0" y="832.0">de.thdeg.helfrich.choplifter.game.GameLoopManager</node>
+    <node x="184.0" y="280.5">de.thdeg.helfrich.choplifter.gameobjects.Background</node>
+    <node x="628.4935897435898" y="314.5">de.thdeg.helfrich.choplifter.gameobjects.Enemies</node>
+    <node x="0.0" y="269.0">de.thdeg.helfrich.choplifter.gameobjects.Hostage</node>
+    <node x="662.5" y="495.0">de.thdeg.helfrich.choplifter.gameobjects.Drone</node>
+    <node x="3.5" y="528.5">de.thdeg.helfrich.choplifter.gameobjects.Border</node>
+    <node x="0.0" y="832.0">de.thdeg.helfrich.choplifter.actions.Position</node>
+    <node x="575.0" y="0.0">de.thdeg.helfrich.choplifter.gameobjects.GameObject</node>
+    <node x="936.4935897435898" y="214.0">de.thdeg.helfrich.choplifter.gameobjects.Chopper</node>
+    <node x="176.5" y="528.5">de.thdeg.helfrich.choplifter.gameobjects.ScoreBoard</node>
+    <node x="600.5" y="666.0">de.thdeg.helfrich.choplifter.gameobjects.Jet</node>
+    <node x="538.5" y="540.5">de.thdeg.helfrich.choplifter.gameobjects.Shooter</node>
+    <node x="451.0" y="832.0">de.thdeg.helfrich.choplifter.game.Start</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="de.thdeg.helfrich.choplifter.gameobjects.Drone" target="de.thdeg.helfrich.choplifter.gameobjects.Enemies">
+      <point x="0.0" y="-60.5" />
+      <point x="744.5" y="470.0" />
+      <point x="706.4935897435898" y="470.0" />
+      <point x="26.0" y="15.0" />
+    </edge>
+    <edge source="de.thdeg.helfrich.choplifter.gameobjects.Background" target="de.thdeg.helfrich.choplifter.gameobjects.GameObject">
+      <point x="0.0" y="-49.0" />
+      <point x="266.0" y="194.0" />
+      <point x="630.5" y="194.0" />
+      <point x="-37.0" y="82.0" />
+    </edge>
+    <edge source="de.thdeg.helfrich.choplifter.gameobjects.Barracks" target="de.thdeg.helfrich.choplifter.gameobjects.GameObject">
+      <point x="5.6843418860808015E-14" y="-60.5" />
+      <point x="834.4935897435898" y="194.0" />
+      <point x="704.5" y="194.0" />
+      <point x="37.0" y="82.0" />
+    </edge>
+    <edge source="de.thdeg.helfrich.choplifter.gameobjects.Border" target="de.thdeg.helfrich.choplifter.gameobjects.Background">
+      <point x="0.0" y="-27.0" />
+      <point x="80.0" y="470.0" />
+      <point x="211.33333333333337" y="470.0" />
+      <point x="-54.66666666666666" y="49.0" />
+    </edge>
+    <edge source="de.thdeg.helfrich.choplifter.gameobjects.Jet" target="de.thdeg.helfrich.choplifter.gameobjects.Shooter">
+      <point x="0.0" y="-60.5" />
+      <point x="682.5" y="641.0" />
+      <point x="616.5" y="641.0" />
+      <point x="26.0" y="15.0" />
+    </edge>
+    <edge source="de.thdeg.helfrich.choplifter.gameobjects.ScoreBoard" target="de.thdeg.helfrich.choplifter.gameobjects.Background">
+      <point x="0.0" y="-27.0" />
+      <point x="0.0" y="49.0" />
+    </edge>
+    <edge source="de.thdeg.helfrich.choplifter.gameobjects.Chopper" target="de.thdeg.helfrich.choplifter.gameobjects.GameObject">
+      <point x="0.0" y="-115.5" />
+      <point x="1018.4935897435898" y="184.0" />
+      <point x="741.5" y="184.0" />
+      <point x="74.0" y="82.0" />
+    </edge>
+    <edge source="de.thdeg.helfrich.choplifter.gameobjects.Stars" target="de.thdeg.helfrich.choplifter.gameobjects.Background">
+      <point x="0.0" y="-27.0" />
+      <point x="447.0" y="470.0" />
+      <point x="320.66666666666663" y="470.0" />
+      <point x="54.66666666666663" y="49.0" />
+    </edge>
+    <edge source="de.thdeg.helfrich.choplifter.gameobjects.Tank" target="de.thdeg.helfrich.choplifter.gameobjects.Shooter">
+      <point x="0.0" y="-60.5" />
+      <point x="498.5" y="641.0" />
+      <point x="564.5" y="641.0" />
+      <point x="-26.0" y="15.0" />
+    </edge>
+    <edge source="de.thdeg.helfrich.choplifter.gameobjects.Shooter" target="de.thdeg.helfrich.choplifter.gameobjects.Enemies">
+      <point x="0.0" y="-15.0" />
+      <point x="590.5" y="470.0" />
+      <point x="654.4935897435898" y="470.0" />
+      <point x="-26.0" y="15.0" />
+    </edge>
+    <edge source="de.thdeg.helfrich.choplifter.gameobjects.Enemies" target="de.thdeg.helfrich.choplifter.gameobjects.GameObject">
+      <point x="0.0" y="-15.0" />
+      <point x="680.4935897435898" y="194.0" />
+      <point x="667.5" y="194.0" />
+      <point x="0.0" y="82.0" />
+    </edge>
+    <edge source="de.thdeg.helfrich.choplifter.gameobjects.Hostage" target="de.thdeg.helfrich.choplifter.gameobjects.GameObject">
+      <point x="0.0" y="-60.5" />
+      <point x="82.0" y="184.0" />
+      <point x="593.5" y="184.0" />
+      <point x="-74.0" y="82.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.5976157082748947" x="681.5" y="693.3851208636471" />
+  <SelectedNodes>
+    <node>de.thdeg.helfrich.choplifter.gameobjects.Stars</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+

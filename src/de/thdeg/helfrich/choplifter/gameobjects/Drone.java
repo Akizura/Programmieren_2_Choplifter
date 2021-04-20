@@ -7,10 +7,10 @@ import java.awt.*;
 /**
  * Represents a drone in the game.
  */
-public class Drone extends GameObject{
+public class Drone extends Enemies{
 
     private final static String DRONE =
-            "Y                                 Y\n" +
+                    "Y                                 Y\n" +
                     " W            RRRRRRR            W \n" +
                     "  W         RRRRRRRRRRR         W  \n" +
                     "   W      RRRRRRRRRRRRRRR      W   \n" +
@@ -39,6 +39,7 @@ public class Drone extends GameObject{
     private int bullets;
     private int takenDamage;
     private boolean destroyed;
+    private boolean exploded;
 
     /**
      * Creates a new Drone.
@@ -55,6 +56,8 @@ public class Drone extends GameObject{
         super.speedInPixel = 0.25;
         this.flyFromLeftToRight = true;
         this.destroyed = false;
+        this.exploded = false;
+        super.inRangeOfChopper = false;
         gameView.setColorForBlockImage('R', Color.RED);
         gameView.setColorForBlockImage('L', Color.BLACK);
         gameView.setColorForBlockImage('W', Color.WHITE);
@@ -88,7 +91,7 @@ public class Drone extends GameObject{
         }
     }
 
-    private void shoot(){
+    private void explode(){
 
     }
 

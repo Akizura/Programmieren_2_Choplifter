@@ -8,7 +8,7 @@ import java.awt.*;
 /**
  * Represents a chopper in the game.
  */
-public class Chopper extends GameObject{
+public class Chopper extends GameObject {
 
     /**
      * BlockImage chopper in three different perspectives*
@@ -64,6 +64,12 @@ public class Chopper extends GameObject{
     private final static int MAXNUMBEROFPASSENGERS = 16;
     private boolean shooting;
     private boolean diagonalMovement;
+    private boolean moveVertically;
+    private boolean moveLeft;
+    private boolean moveRight;
+    private boolean chopperFront;
+    private final int minimumFlingHeight;
+    private boolean showGraphics;
 
     /**
      * Creates a new Chopper.
@@ -71,7 +77,6 @@ public class Chopper extends GameObject{
      */
     public Chopper(GameView gameView){
         super(gameView);
-        super.gameView = gameView;
         super.position = new Position(300,300);
         super.size = 1;
         super.width = (int) (15 * size);
@@ -79,10 +84,16 @@ public class Chopper extends GameObject{
         super.rotation = 0;
         super.speedInPixel = 2;
         this.diagonalMovement = false;
+        this.moveLeft = false;
+        this.moveRight = false;
+        this.moveVertically = true;
+        this.chopperFront = false;
         this.numberOfPassengers = 0;
         this.takenDamage = 0;
         this.numberOfLives = 3;
         this.shooting = false;
+        this.minimumFlingHeight = 200;
+        this.showGraphics = true;
         gameView.setColorForBlockImage('W', Color.WHITE);
         gameView.setColorForBlockImage('L', Color.BLACK);
     }
@@ -92,44 +103,70 @@ public class Chopper extends GameObject{
      */
     @Override
     public void addToCanvas() {
-        if (shooting ==false) {
-            gameView.addTextToCanvas("X", position.x, position.y, 50, Color.WHITE, rotation);
-        } else {
-            gameView.addTextToCanvas("O",position.x, position.y, 50, Color.RED, rotation);
-            shooting=false;
+        if (showGraphics == true) {
+            if (moveLeft == true) {
+                gameView.addBlockImageToCanvas(CHOPPER_LEFT, position.x, position.y, 3.5, 0);
+            }
+            if (moveRight == true) {
+                gameView.addBlockImageToCanvas(CHOPPER_RIGHT, position.x, position.y, 3.5, 0);
+            }
+            if (moveVertically == true) {
+                gameView.addBlockImageToCanvas(CHOPPER_FRONT, position.x, position.y, 3.5, 0);
+            }
+            if (shooting == true) {
+                gameView.addTextToCanvas("You are shooting", position.x, position.y, 20, Color.RED, rotation);
+                shooting = false;
+            } }else {
+                if (shooting == true) {
+                    gameView.addTextToCanvas("O", position.x, position.y, 50, Color.RED, rotation);
+                    shooting = false;
+                } else {
+                    gameView.addTextToCanvas("X", position.x, position.y, 50, Color.WHITE, rotation);
+                }
+            }
         }
-        /*gameView.addBlockImageToCanvas(CHOPPER_RIGHT, position.x, position.y, size, rotation);*/
-    }
 
     @Override
     public void updatePosition(){}
 
-    /**
-     * Moves the chopper leftwards.
-     */
-    public void left () {
+        /**
+         * Moves the chopper leftwards.
+         */
+        public void left () {
         position.left(speedInPixel);
+        moveLeft = true;
+        moveRight = false;
+        moveVertically = false;
     }
 
-    /**
-     * Moves the chopper rightwards.
-     */
-    public void right () {
+        /**
+         * Moves the chopper rightwards.
+         */
+        public void right () {
         position.right(speedInPixel);
+        moveRight = true;
+        moveLeft = false;
+        moveVertically = false;
     }
 
-    /**
-     * Moves the copper upwards.
-     */
-    public void up () {
+        /**
+         * Moves the copper upwards.
+         */
+        public void up () {
         position.up(speedInPixel);
+        moveVertically = true;
+        moveLeft = false;
+        moveRight = false;
     }
 
-    /**
-     * Moves the chopper downwards.
-     */
-    public void down () {
+        /**
+         * Moves the chopper downwards.
+         */
+        public void down () {
         position.down(speedInPixel);
+        moveVertically = true;
+            moveLeft = false;
+            moveRight = false;
     }
 
     /**
