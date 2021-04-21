@@ -1,5 +1,7 @@
 package de.thdeg.helfrich.choplifter.game;
 
+import de.thdeg.helfrich.choplifter.game.managers.GameLoopManager;
+
 /**
  * Manages the whole game.
  */

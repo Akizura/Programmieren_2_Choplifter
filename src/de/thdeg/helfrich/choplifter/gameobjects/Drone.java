@@ -7,7 +7,7 @@ import java.awt.*;
 /**
  * Represents a drone in the game.
  */
-public class Drone extends Enemies{
+public class Drone extends Enemy {
 
     private final static String DRONE =
                     "Y                                 Y\n" +

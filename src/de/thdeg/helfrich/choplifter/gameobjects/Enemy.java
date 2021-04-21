@@ -6,11 +6,11 @@ import de.thdeg.helfrich.choplifter.gameview.GameView;
 /**
  * Represents the Enemies in the game.
  */
-abstract class Enemies extends GameObject {
+abstract class Enemy extends GameObject {
 
     protected boolean inRangeOfChopper;
 
-    protected Enemies(GameView gameView){
+    protected Enemy(GameView gameView){
         super(gameView);
         this.inRangeOfChopper = false;
     }

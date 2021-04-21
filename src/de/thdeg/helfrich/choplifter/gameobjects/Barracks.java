@@ -8,7 +8,7 @@ import java.awt.*;
 /**
  * Represents a Barracks in the game.
  */
-public class Barracks extends GameObject {
+public class Barracks extends Building {
 
     private final static String BARRACKS_CLOSED =
             "                    WWWWWWWWWW                    \n" +
@@ -78,8 +78,8 @@ public class Barracks extends GameObject {
     public Barracks(GameView gameView) {
         super(gameView);
         super.gameView = gameView;
-        super.position = new Position(600, 400);
-        super.size=1.85;
+        super.position = new Position(300, 410);
+        super.size=1.5;
         super.width = (int) (40 * size);
         super.height = (int) (25 * size);
         super.rotation = 0;

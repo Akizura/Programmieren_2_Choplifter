@@ -5,7 +5,7 @@ import de.thdeg.helfrich.choplifter.gameview.GameView;
 /**
  * Represents the Shooters in the game.
  */
-abstract class Shooter extends Enemies{
+abstract class Shooter extends Enemy {
 
     protected double shotsPerSecond;
 

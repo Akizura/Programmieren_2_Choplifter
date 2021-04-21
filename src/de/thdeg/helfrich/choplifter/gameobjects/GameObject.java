@@ -1,6 +1,8 @@
 package de.thdeg.helfrich.choplifter.gameobjects;
 
 import de.thdeg.helfrich.choplifter.actions.Position;
+import de.thdeg.helfrich.choplifter.game.managers.GameObjectManager;
+import de.thdeg.helfrich.choplifter.game.managers.GamePlayManager;
 import de.thdeg.helfrich.choplifter.gameview.GameView;
 
 /**
@@ -9,6 +11,7 @@ import de.thdeg.helfrich.choplifter.gameview.GameView;
 abstract class GameObject {
 
     protected GameView gameView;
+    protected GamePlayManager gamePlayManager;
     protected Position position;
     protected double speedInPixel;
     protected double size;
@@ -54,6 +57,10 @@ abstract class GameObject {
      * Draws the GameObject to the canvas.
      */
     public abstract void addToCanvas();
+
+    /*protected void setGamePlayManager(){
+        this.gamePlayManager = new GamePlayManager(gameView, gameObjectManager);
+    }*/
 
     /**
      *Counts the GameObjects.
