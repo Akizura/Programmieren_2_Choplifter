@@ -1,9 +1,4 @@
 package de.thdeg.helfrich.choplifter.game.managers;
-import de.thdeg.helfrich.choplifter.gameview.GameView;
-import de.thdeg.helfrich.choplifter.gameobjects.*;
-
-import java.awt.Color;
-import java.awt.event.KeyEvent;
 
 /**This class manages the main game loop of the game. */
 /*public class GameLoopManager_alt {

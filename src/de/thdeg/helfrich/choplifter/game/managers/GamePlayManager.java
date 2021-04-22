@@ -1,15 +1,22 @@
 package de.thdeg.helfrich.choplifter.game.managers;
 
 import de.thdeg.helfrich.choplifter.gameview.GameView;
+import de.thdeg.helfrich.choplifter.game.managers.GameObjectManager;
 
+/**
+ * This class manages the procedure of the game.
+ */
 public class GamePlayManager {
 
-    private final GameView gameView;
-    private final GameObjectManager gameObjectManager;
+    private GameView gameView;
+    private GameObjectManager gameObjectManager;
 
+    /**
+     * Creates a new GamePlayManager.
+     * @param gameView
+     * @param gameObjectManager
+     */
     public GamePlayManager(GameView gameView, GameObjectManager gameObjectManager){
-        this.gameView = new GameView();
-        this.gameObjectManager = new GameObjectManager(gameView);
     }
 
     public void updateGamePlay(){

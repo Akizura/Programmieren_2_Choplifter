@@ -1,7 +1,7 @@
 package de.thdeg.helfrich.choplifter.game.managers;
 
 import de.thdeg.helfrich.choplifter.gameview.GameView;
-import de.thdeg.helfrich.choplifter.gameobjects.Chopper;
+import de.thdeg.helfrich.choplifter.graphics.mobileobjects.Chopper;
 
 import java.awt.event.KeyEvent;
 
@@ -14,9 +14,14 @@ public class InputManager {
     private Chopper chopper;
     private static final boolean DIAGONALMOVEMENT = false;
 
+    /**
+     * Creates a new InputManager.
+     * @param gameView
+     * @param chopper
+     */
     public InputManager(GameView gameView, Chopper chopper){
-        this.gameView = new GameView();
-        this.chopper = new Chopper(gameView);
+        this.gameView = gameView;
+        this.chopper = chopper;
     }
 
     /**
