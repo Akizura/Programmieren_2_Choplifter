@@ -1,7 +1,10 @@
 package de.thdeg.helfrich.choplifter.game.managers;
+
 import de.thdeg.helfrich.choplifter.gameview.GameView;
 
-/** This class manages the main game loop of the game. */
+/**
+ * This class manages the main game loop of the game.
+ */
 public class GameLoopManager {
 
     private final GameView gameView;
@@ -9,7 +12,9 @@ public class GameLoopManager {
     private final GameObjectManager gameObjectManager;
     private final GamePlayManager gamePlayManager;
 
-    /** Creates the main loop. */
+    /**
+     * Creates the main loop.
+     */
     public GameLoopManager() {
         this.gameView = new GameView();
         this.gameView.setWindowTitle("Choplifter");
@@ -20,7 +25,10 @@ public class GameLoopManager {
         this.inputManager = new InputManager(gameView, gameObjectManager.getChopper());
         this.gamePlayManager = new GamePlayManager(gameView, gameObjectManager);
     }
-    /** Starts the main loop of the game. */
+
+    /**
+     * Starts the main loop of the game.
+     */
     public void startGame() {
         while (true) { // The "Game-Loop"
             gamePlayManager.updateGamePlay();

@@ -1,14 +1,17 @@
 package de.thdeg.helfrich.choplifter.graphics.mobileobjects;
-import de.thdeg.helfrich.choplifter.actions.Position;
+
+import de.thdeg.helfrich.choplifter.graphics.basics.MovingGameObject;
+import de.thdeg.helfrich.choplifter.graphics.basics.Position;
 import de.thdeg.helfrich.choplifter.gameview.GameView;
-import de.thdeg.helfrich.choplifter.graphics.mobileobjects.Enemy;
 
 import java.awt.*;
+import java.util.LinkedList;
+import java.util.Random;
 
 /**
  * Represents a drone in the game.
  */
-public class Drone extends Enemy {
+public class Drone extends Enemy implements MovingGameObject {
 
     private final static String DRONE =
                     "Y                                 Y\n" +
@@ -41,15 +44,21 @@ public class Drone extends Enemy {
     private int takenDamage;
     private boolean destroyed;
     private boolean exploded;
+    private String objectID;
+    private Random random;
 
     /**
      * Creates a new Drone.
+     *
      * @param gameView GameView to show the Drone on.
      */
-    public Drone(GameView gameView){
+    public Drone(GameView gameView) {
         super(gameView);
+        LinkedList<Drone> drones = new LinkedList<>();
         super.gameView = gameView;
-        super.position = new Position(48, 160);
+        this.random = new Random();
+        /*super.position = new Position(48, 160);*/
+        super.position = new Position(random.nextInt(gameView.WIDTH-width), random.nextInt(gameView.HEIGHT-200));
         super.size = 1;
         super.width = (int) (35 * size);
         super.height = (int) (24 * size);
@@ -59,6 +68,7 @@ public class Drone extends Enemy {
         this.destroyed = false;
         this.exploded = false;
         super.inRangeOfChopper = false;
+        this.objectID = "Drone" + position.x + position.y;
         gameView.setColorForBlockImage('R', Color.RED);
         gameView.setColorForBlockImage('L', Color.BLACK);
         gameView.setColorForBlockImage('W', Color.WHITE);
@@ -66,8 +76,10 @@ public class Drone extends Enemy {
         gameView.setColorForBlockImage('n', new Color(84, 22, 7));
     }
 
+
+
     /**
-     *Draws the Drone to the canvas.
+     * Draws the Drone to the canvas.
      */
     @Override
     public void addToCanvas() {
@@ -85,23 +97,29 @@ public class Drone extends Enemy {
             flyFromLeftToRight = false;
             if (flyFromLeftToRight == false) {
                 position.left(speedInPixel);
-                if(position.x <= 0){
+                if (position.x <= 0) {
                     flyFromLeftToRight = true;
                 }
             }
         }
     }
 
-    private void explode(){
+    @Override
+    public void updateStatus(){
 
     }
 
-    private void takeDamage(){
+    private void explode() {
+
+    }
+
+    private void takeDamage() {
 
     }
 
     /**
      * Shows a summary of the core information of Drone.
+     *
      * @return Returns the name of the class and the current position.
      */
     @Override

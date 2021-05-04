@@ -1,8 +1,7 @@
 package de.thdeg.helfrich.choplifter.graphics.staticobjects;
 
-import de.thdeg.helfrich.choplifter.actions.Position;
+import de.thdeg.helfrich.choplifter.graphics.basics.Position;
 import de.thdeg.helfrich.choplifter.gameview.GameView;
-import de.thdeg.helfrich.choplifter.graphics.staticobjects.Building;
 
 import java.awt.*;
 
@@ -12,7 +11,7 @@ import java.awt.*;
 public class Barracks extends Building {
 
     private final static String BARRACKS_CLOSED =
-            "                    WWWWWWWWWW                    \n" +
+                    "                    WWWWWWWWWW                    \n" +
                     "                  WWWWWWWWWWWWWW                  \n" +
                     "    KKKKK       WWWWWLLLLLLLLWWWWW                \n" +
                     "    KKKKK     WWWWWSSLLLLLLLLSSWWWWW              \n" +
@@ -40,30 +39,30 @@ public class Barracks extends Building {
                     " WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW ";
 
     private final static String BARRACKS_ONFIRE =
-            "                    WWWWWWWWWW                    \n" +
+                    "                    WWWWWWWWWW                    \n" +
                     "                  WWWWWWWWWWWWWW                  \n" +
-                    "    KKKKK       WWWWWLLLLLLLLWWWWW                \n" +
+                    "    KKKKK       WWWWWLLLLYLLLWWWWW                \n" +
                     "    KKKKK     WWWWWSSLLLLLLLLSSWWWWW              \n" +
                     "    KKKKK   WWWWWSSSSLLLLLLLLSSSSWWWWW            \n" +
-                    "      KKK WWWWWSSSSSSLLLLLLLLSSSSSSWWWWW          \n" +
-                    "      KKWWWWWSSSSSSSSLLLLLLLLSSSSSSSSWWWWW        \n" +
+                    "      KKK WWWWWSSSSSSLLLLLYLLSSSSSSWWWWW          \n" +
+                    "      KKWWWWWSSSSYSSSLLLLLLLLSSSSSSSSWWWWW        \n" +
                     "      WWWWWSSSSSSSSSSLLLLLLLLSSSSSSSSSSWWWWW      \n" +
-                    "    WWWWWSSSSSSSSSSSSLLLLLLLLSSSSSSSSSSSSWWWWW    \n" +
-                    "  WWWWWSSSSSSSSSSSSSSLLLLLLLLSSSSSSSSSSSSSSWWWWW  \n" +
-                    " WWWWSSSSSSSSSSSSSSSSLLLLLLLLSSSSSSSSSSSSSSSSWWWW \n" +
-                    " WWSSSSSSSSSSSSSSSSSSLLLLLLLLSSSSSSSSSSSSSSSSSSWW \n" +
-                    " SSSSSSSSSSSSSSSSSSSSLLLLLLLLSSSSSSSSSSSSSSSSSSSS \n" +
-                    " SSSSSSSSSSSSSSSSSSSSLLLLLLLLSSSSSSSSSSSSSSSSSSSS \n" +
-                    " SSSSSSSSSSSSSSSSSSSSLLLLLLLLSSSSSSSSSSSSSSSSSSSS \n" +
-                    " SSSSSSSSSSSSSSSWWWWWWWWWWWWWWWWSSSSSSSSSSSSSSSSS \n" +
-                    " SSSSSSSSSSSSSWWWSWWWWWWLLWWWWWWSSSSSSSSSSSSSSSSS \n" +
-                    " SSSSSSSSSSSWWWSWSSWWWWLLLLWWWWSSSSSSSSSSSSSSSSSS \n" +
-                    " SSSSSSSSSWWWSWSWSSSWWLLLLLLWWSSSSSSSSSSSSSSSSSSS \n" +
-                    " SSSSSSSWWWSWSWSWSSSWWLLLLLLWWSSSSSSSSSSSSSSSSSSS \n" +
-                    " SSSSSWWWSWSWSWSWSSSWWLLLLLLWWSSSSSSSSSSSSSSSSSSS \n" +
-                    " SSSSSWSWSWSWSWSWSSSWWLLLLLLWWSSSSSSSSSSSSSSSSSSS \n" +
-                    " SSSSSWSWSWSWSWSWSSWWWWLLLLWWWWSSSSSSSSSSSSSSSSSS \n" +
-                    " SSSSSWSWSWSWSWSWSWWWWWWLLWWWWWWSSSSSSSSSSSSSSSSS \n" +
+                    "    WWWWWSSSSSSSSSSSSLLYLLLLLSSSSSSSSSSSSWWWWW    \n" +
+                    "  WWWWWSSSSSSSSSSSSSSLLLLLLLSSSSSSYSSSSSSSWWWWW  \n" +
+                    " WWWWSSSSSSSLLLLSSSSSLLLLYLLLSSSSSSSSSSSSSSSSWWWW \n" +
+                    " WWSSSSSSSSSLLLLLLSSSLLLLLLLLSSSSSSLLYLSSSSSSSSWW \n" +
+                    " SSSSSSSSSSSLLLLLLLLLLLLLLLLLLLLLLLLLLLSSSSSSSSSS \n" +
+                    " SSSSSSLLLLLLLLYLLLLLLLLLLLLLqLLLLYLLSSSSSSSSSSSS \n" +
+                    " SSSSSSLLLLLLLLLLLLLLLLLLLLLqqqLLLSSSSSSSSSSSSSSS \n" +
+                    " SSSSSSSSLLYLLLLLLLqLLLLLLLRqYqRLLLLLLLLLSSSSSSSS \n" +
+                    " SSSSSSSSSLLLLLLLLqqqLLLYLLRqYqRLLLLYLLLLSSSSSSSS \n" +
+                    " SSSSYSSSSSSSLLLLLRqYqRLLLLLLqKqLLLLLSSSSSSSSSSSSS \n" +
+                    " SSSSSSSSSLLLLLLLRqYqRLLLLLLKKKLLLLSSSSSSSSSSYSSS \n" +
+                    " SSSSSSSLLLLLYLLRqYYYqRLLLLKKKKKLLLLLLLSSSSSSSSSS \n" +
+                    " SSSSSSSLLLLLLLLRqYYYqRLLLLLLLLLLLLLLLLLLLSSSSSSS \n" +
+                    " SSSSSSSSSSSSLLLLRqKqRLLLLYLLLLLLLLLLLLLLLSSSSSSS \n" +
+                    " SSSSSSSSSSLLLLLLLKKKLLLLLLLLLLYLLLLLLSSSSSSSSSSS \n" +
+                    " SSSSSSSSSLLLLLLLKKKKKLLLLLLLLLLLSSSSSSSSSSSSSSSS \n" +
                     " WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW \n" +
                     " WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW ";
 
@@ -74,13 +73,14 @@ public class Barracks extends Building {
 
     /**
      * Creates a new Barracks.
+     *
      * @param gameView GameView to show the Barracks on.
      */
     public Barracks(GameView gameView) {
         super(gameView);
         super.gameView = gameView;
-        super.position = new Position(300, 410);
-        super.size=1.5;
+        super.position = new Position(200, 410);
+        super.size = 1.5;
         super.width = (int) (40 * size);
         super.height = (int) (25 * size);
         super.rotation = 0;
@@ -89,6 +89,9 @@ public class Barracks extends Building {
         this.hostagesInside = 16;
         gameView.setColorForBlockImage('W', Color.WHITE);
         gameView.setColorForBlockImage('L', Color.BLACK);
+        gameView.setColorForBlockImage('R', Color.RED);
+        gameView.setColorForBlockImage('Y', Color.YELLOW);
+        gameView.setColorForBlockImage('q', new Color(179, 53, 25));
         gameView.setColorForBlockImage('K', new Color(94, 55, 40));
         gameView.setColorForBlockImage('S', new Color(104, 58, 183));
     }
@@ -105,11 +108,6 @@ public class Barracks extends Building {
         }
     }
 
-    @Override
-    public void updatePosition(){
-
-    }
-
     private int getHostagesInside() {
         return hostagesInside;
     }
@@ -122,12 +120,18 @@ public class Barracks extends Building {
         return destroyed;
     }
 
-    private void takeDamage () {
+    private void takeDamage() {
+
+    }
+
+    @Override
+    public void updateStatus(){
 
     }
 
     /**
      * Shows a summary of the core information of Barracks.
+     *
      * @return Returns the name of the class and the current position.
      */
     @Override

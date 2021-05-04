@@ -1,15 +1,19 @@
 package de.thdeg.helfrich.choplifter.graphics.mobileobjects;
-import de.thdeg.helfrich.choplifter.actions.Position;
+
+import de.thdeg.helfrich.choplifter.graphics.basics.MovingGameObject;
+import de.thdeg.helfrich.choplifter.graphics.basics.Position;
 import de.thdeg.helfrich.choplifter.gameview.GameView;
-import de.thdeg.helfrich.choplifter.graphics.mobileobjects.Enemy;
 
 import java.awt.*;
+import java.util.Random;
 
-/** Represents a jet in the game.*/
-public class Jet extends Shooter {
+/**
+ * Represents a jet in the game.
+ */
+public class Jet extends Shooter implements MovingGameObject {
 
     private final static String JET_RIGHT =
-            " LLLL                                           \n" +
+                    " LLLL                                           \n" +
                     " LaaLLLL                                        \n" +
                     " LaaaLAAL                                       \n" +
                     " LaaaLAAAL                                      \n" +
@@ -30,7 +34,7 @@ public class Jet extends Shooter {
                     "  LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL         \n";
 
     private final static String JET_LEFT =
-            "                                           LLLL \n" +
+                    "                                           LLLL \n" +
                     "                                        LLLLaaL \n" +
                     "                                       LAALaaaL \n" +
                     "                                      LAAALaaaL \n" +
@@ -54,16 +58,20 @@ public class Jet extends Shooter {
     private int takenDamage;
     private boolean destroyed;
     private boolean moveFromLeftToRight;
+    private Random random;
+    private final String objectID;
 
     /**
      * Creates a new Jet.
+     *
      * @param gameView GameView to show the Jet on.
      */
-    public Jet(GameView gameView){
+    public Jet(GameView gameView) {
         super(gameView);
-        super.gameView = gameView;
-        super.position = new Position(48, 250);
-        super.size = 2;
+        this.random = new Random();
+        /*super.position = new Position(48, 250);*/
+        super.position = new Position(random.nextInt(gameView.WIDTH-width), random.nextInt(gameView.HEIGHT-200));
+        super.size = 1.75;
         super.width = (int) (48 * size);
         super.height = (int) (19 * size);
         super.rotation = 0;
@@ -72,6 +80,7 @@ public class Jet extends Shooter {
         this.destroyed = false;
         super.shotsPerSecond = 2;
         super.inRangeOfChopper = false;
+        this.objectID = "Jet" + position.x + position.y;
         gameView.setColorForBlockImage('d', new Color(64, 195, 255));
         gameView.setColorForBlockImage('A', new Color(74, 20, 140));
         gameView.setColorForBlockImage('a', new Color(105, 27, 145));
@@ -106,10 +115,18 @@ public class Jet extends Shooter {
             moveFromLeftToRight = false;
             if (moveFromLeftToRight == false) {
                 position.left(speedInPixel);
-                if(position.x <= 0){
+                if (position.x <= 0) {
                     moveFromLeftToRight = true;
                 }
             }
+        }
+    }
+
+    @Override
+    public void updateStatus(){
+        if (gameView.timerExpired("Shoot", objectID)) {
+            gameView.setTimer("Shoot", objectID, 300);
+            gamePlayManager.shootJetShot(position);
         }
     }
 
@@ -123,6 +140,7 @@ public class Jet extends Shooter {
 
     /**
      * Shows a summary of the core information of Jet.
+     *
      * @return Returns the name of the class and the current position.
      */
     @Override

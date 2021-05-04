@@ -1,6 +1,6 @@
 package de.thdeg.helfrich.choplifter.graphics.mobileobjects;
 
-import de.thdeg.helfrich.choplifter.actions.Position;
+import de.thdeg.helfrich.choplifter.graphics.basics.Position;
 import de.thdeg.helfrich.choplifter.gameview.GameView;
 import de.thdeg.helfrich.choplifter.graphics.basics.GameObject;
 
@@ -14,50 +14,50 @@ public class Chopper extends GameObject {
     /**
      * BlockImage chopper in three different perspectives*
      */
-        private final static String CHOPPER_RIGHT =
-                "        W      \n" +
-                "  WWWWWWWWWWWWW\n" +
-                "W       W      \n" +
-                " W       W     \n" +
-                "  W    WWWWW   \n" +
-                "  WWWWWWWWWWW  \n" +
-                "  W   WWWWWLLW \n" +
-                "  W   WWWWWLLLW\n" +
-                "      WWWWWWWWW\n" +
-                "       WWWWWWW \n" +
-                "        W W    \n" +
-                "       W   W  W\n" +
-                "     WWWWWWWWW \n";
+    private final static String CHOPPER_RIGHT =
+                    "        W      \n" +
+                    "  WWWWWWWWWWWWW\n" +
+                    "W       W      \n" +
+                    " W       W     \n" +
+                    "  W    WWWWW   \n" +
+                    "  WWWWWWWWWWW  \n" +
+                    "  W   WWWWWLLW \n" +
+                    "  W   WWWWWLLLW\n" +
+                    "      WWWWWWWWW\n" +
+                    "       WWWWWWW \n" +
+                    "        W W    \n" +
+                    "       W   W  W\n" +
+                    "     WWWWWWWWW \n";
 
-        private final static String CHOPPER_LEFT =
-                        "      W        \n" +
-                        "WWWWWWWWWWWWW  \n" +
-                        "      W       W\n" +
-                        "     W       W \n" +
-                        "   WWWWW    W  \n" +
-                        "  WWWWWWWWWWW  \n" +
-                        " WLLWWWWW   W  \n" +
-                        "WLLLWWWWW   W  \n" +
-                        "WWWWWWWWW      \n" +
-                        " WWWWWWW       \n" +
-                        "    W W        \n" +
-                        "W  W   W       \n" +
-                        " WWWWWWWWW     \n";
+    private final static String CHOPPER_LEFT =
+                    "      W        \n" +
+                    "WWWWWWWWWWWWW  \n" +
+                    "      W       W\n" +
+                    "     W       W \n" +
+                    "   WWWWW    W  \n" +
+                    "  WWWWWWWWWWW  \n" +
+                    " WLLWWWWW   W  \n" +
+                    "WLLLWWWWW   W  \n" +
+                    "WWWWWWWWW      \n" +
+                    " WWWWWWW       \n" +
+                    "    W W        \n" +
+                    "W  W   W       \n" +
+                    " WWWWWWWWW     \n";
 
-        private final static String CHOPPER_FRONT =
-                "       W       \n" +
-                " WWWWWWWWWWWWW \n" +
-                "       W       \n" +
-                "       W       \n" +
-                "      WWW      \n" +
-                "    WWWWWWW    \n" +
-                "   WWLLLLLWW   \n" +
-                "   WWLLLLLWW   \n" +
-                "   WWWWWWWWW   \n" +
-                "    WWWWWWW    \n" +
-                "     WWWWW     \n" +
-                "    W     W    \n" +
-                "   W       W   \n";
+    private final static String CHOPPER_FRONT =
+                    "       W       \n" +
+                    " WWWWWWWWWWWWW \n" +
+                    "       W       \n" +
+                    "       W       \n" +
+                    "      WWW      \n" +
+                    "    WWWWWWW    \n" +
+                    "   WWLLLLLWW   \n" +
+                    "   WWLLLLLWW   \n" +
+                    "   WWWWWWWWW   \n" +
+                    "    WWWWWWW    \n" +
+                    "     WWWWW     \n" +
+                    "    W     W    \n" +
+                    "   W       W   \n";
 
     private int takenDamage;
     private int numberOfLives;
@@ -74,12 +74,14 @@ public class Chopper extends GameObject {
 
     /**
      * Creates a new Chopper.
+     *
      * @param gameView GameView to show the Chopper on
      */
-    public Chopper(GameView gameView){
+    public Chopper(GameView gameView) {
         super(gameView);
-        super.position = new Position(300,300);
-        super.size = 1;
+        /*super.position = new Position(300, 300);*/
+        super.position = new Position((GameView.WIDTH - width) / 2d, (GameView.HEIGHT - height) / 2d);
+        super.size = 0.75;
         super.width = (int) (15 * size);
         super.height = (int) (14 * size);
         super.rotation = 0;
@@ -114,71 +116,78 @@ public class Chopper extends GameObject {
             if (moveVertically == true) {
                 gameView.addBlockImageToCanvas(CHOPPER_FRONT, position.x, position.y, 3.5, 0);
             }
-            if (shooting == true) {
+            /*if (shooting == true) {
                 gameView.addTextToCanvas("You are shooting", position.x, position.y, 20, Color.RED, rotation);
                 shooting = false;
-            } }else {
-                if (shooting == true) {
-                    gameView.addTextToCanvas("O", position.x, position.y, 50, Color.RED, rotation);
-                    shooting = false;
-                } else {
-                    gameView.addTextToCanvas("X", position.x, position.y, 50, Color.WHITE, rotation);
-                }
             }
+        } else {
+            if (shooting == true) {
+                gameView.addTextToCanvas("O", position.x, position.y, 50, Color.RED, rotation);
+                shooting = false;
+            } else {
+                gameView.addTextToCanvas("X", position.x, position.y, 50, Color.WHITE, rotation);
+            }*/
         }
+    }
 
-    @Override
-    public void updatePosition(){}
-
-        /**
-         * Moves the chopper leftwards.
-         */
-        public void left () {
+    /**
+     * Moves the chopper leftwards.
+     */
+    public void left() {
         position.left(speedInPixel);
         moveLeft = true;
         moveRight = false;
         moveVertically = false;
     }
 
-        /**
-         * Moves the chopper rightwards.
-         */
-        public void right () {
+    /**
+     * Moves the chopper rightwards.
+     */
+    public void right() {
         position.right(speedInPixel);
         moveRight = true;
         moveLeft = false;
         moveVertically = false;
     }
 
-        /**
-         * Moves the copper upwards.
-         */
-        public void up () {
+    /**
+     * Moves the copper upwards.
+     */
+    public void up() {
         position.up(speedInPixel);
         moveVertically = true;
         moveLeft = false;
         moveRight = false;
     }
 
-        /**
-         * Moves the chopper downwards.
-         */
-        public void down () {
+    /**
+     * Moves the chopper downwards.
+     */
+    public void down() {
         position.down(speedInPixel);
         moveVertically = true;
-            moveLeft = false;
-            moveRight = false;
+        moveLeft = false;
+        moveRight = false;
     }
 
     /**
      * With this method the chopper is able to shoot.
      */
-    public void shoot(){
-        shooting = true;
+    public void shoot() {
+        /*shooting = true;*/
+        if (gameView.timerExpired("Shot", "Chopper")) {
+            gameView.setTimer("Shot", "Chopper", 300);
+            gamePlayManager.shootChopperShot(position);
+        }
     }
 
     @Override
-    public String toString(){
+    public void updateStatus(){
+
+    }
+
+    @Override
+    public String toString() {
         return "Chopper: (" + "position =" + position + ")";
     }
 

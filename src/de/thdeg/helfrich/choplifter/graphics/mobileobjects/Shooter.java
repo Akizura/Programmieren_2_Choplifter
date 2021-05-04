@@ -10,7 +10,7 @@ abstract class Shooter extends Enemy {
 
     protected double shotsPerSecond;
 
-    protected Shooter(GameView gameView){
+    protected Shooter(GameView gameView) {
         super(gameView);
         this.shotsPerSecond = 5;
     }

@@ -1,18 +1,20 @@
 package de.thdeg.helfrich.choplifter.graphics.mobileobjects;
 
-import de.thdeg.helfrich.choplifter.actions.Position;
+import de.thdeg.helfrich.choplifter.graphics.basics.MovingGameObject;
+import de.thdeg.helfrich.choplifter.graphics.basics.Position;
 import de.thdeg.helfrich.choplifter.gameview.GameView;
-import de.thdeg.helfrich.choplifter.graphics.mobileobjects.Shooter;
 
 import java.awt.*;
+import java.util.LinkedList;
+import java.util.Random;
 
 /**
  * Represents a tank in the game.
  */
-public class Tank extends Shooter {
+public class Tank extends Shooter implements MovingGameObject {
 
     private final static String TANK_RIGHT =
-            "                     nnKKKKKnKKKKKnnnnKWWKnK \n" +
+                    "                     nnKKKKKnKKKKKnnnnKWWKnK \n" +
                     "                     KNnnKnnnnnnnnnKKnnnnnnn \n" +
                     "                     nnnnnnKKKKnKKKKKKKnKKKK \n" +
                     "                    nnnKnnKKnn               \n" +
@@ -34,7 +36,7 @@ public class Tank extends Shooter {
                     "   KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK   ";
 
     private final static String TANK_LEFT =
-            "       KnKWWKnnnnKKKKKnKKKKKnn               \n" +
+                    "       KnKWWKnnnnKKKKKnKKKKKnn               \n" +
                     "       nnnnnnnKKnnnnnnnnnKnnNK               \n" +
                     "       KKKnKKKKKKKnKKKKnnnnnn                \n" +
                     "                    nnKnnKKnnn               \n" +
@@ -59,15 +61,21 @@ public class Tank extends Shooter {
     private int takenDamage;
     private boolean destroyed;
     private boolean flyFromLeftToRight;
+    private String objectID;
+    private Random random;
 
     /**
      * Creates a new Tank.
+     *
      * @param gameView GameView to show the Tank on.
      */
     public Tank(GameView gameView) {
         super(gameView);
+        LinkedList<Tank> tanks = new LinkedList<>();
         super.gameView = gameView;
-        super.position = new Position(30, 470);
+        this.random = new Random();
+        /*super.position = new Position(30, 470);*/
+        super.position = new Position (random.nextInt(gameView.WIDTH-0)-0, gameView.HEIGHT-random.nextInt(130));
         super.size = 1.6;
         super.width = (int) (45 * size);
         super.height = (int) (20 * size);
@@ -77,6 +85,7 @@ public class Tank extends Shooter {
         this.destroyed = false;
         super.shotsPerSecond = 2;
         super.inRangeOfChopper = false;
+        this.objectID = "Tank" + position.x + position.y;
         gameView.setColorForBlockImage('K', new Color(94, 55, 40));
         gameView.setColorForBlockImage('n', new Color(84, 22, 7));
         gameView.setColorForBlockImage('N', new Color(112, 29, 8));
@@ -99,38 +108,51 @@ public class Tank extends Shooter {
             gameView.addBlockImageToCanvas(TANK_LEFT, position.x, position.y, size, rotation);
         }
     }
-        /**
-         * Moves the Tank.
-         */
-        @Override
-        public void updatePosition() {
-            if (flyFromLeftToRight == true & position.x < 960 - width) {
-                position.right(speedInPixel);
-            } else {
-                flyFromLeftToRight = false;
-                if (flyFromLeftToRight == false) {
-                    position.left(speedInPixel);
-                    if (position.x <= 0) {
-                        flyFromLeftToRight = true;
-                    }
+
+    /**
+     * Moves the Tank.
+     */
+    @Override
+    public void updatePosition() {
+        if (flyFromLeftToRight == true & position.x < 960 - width) {
+            position.right(speedInPixel);
+        } else {
+            flyFromLeftToRight = false;
+            if (flyFromLeftToRight == false) {
+                position.left(speedInPixel);
+                if (position.x <= 0) {
+                    flyFromLeftToRight = true;
                 }
             }
         }
+    }
 
-        private void shoot () {
-
-        }
-
-        private void takeDamage () {
-
-        }
-
-        /**
-         * Shows a summary of the core information of Tank.
-         * @return Returns the name of the class and the current position.
-         */
-        @Override
-        public String toString () {
-            return "Tank: (" + "position=" + position + ")";
+    private void shoot() {
+        if (gameView.timerExpired("Shoot", objectID)) {
+            gameView.setTimer("Shoot", objectID, 300);
+            gamePlayManager.shootTankShot(position);
         }
     }
+
+    private void takeDamage() {
+
+    }
+
+    @Override
+    public void updateStatus(){
+        if (gameView.timerExpired("Shoot", objectID)) {
+            gameView.setTimer("Shoot", objectID, 300);
+            gamePlayManager.shootTankShot(position);
+        }
+    }
+
+    /**
+     * Shows a summary of the core information of Tank.
+     *
+     * @return Returns the name of the class and the current position.
+     */
+    @Override
+    public String toString() {
+        return "Tank: (" + "position=" + position + ")";
+    }
+}

@@ -1,4 +1,4 @@
-package de.thdeg.helfrich.choplifter.actions;
+package de.thdeg.helfrich.choplifter.graphics.basics;
 
 /**
  * Represents the positions of the game objects.

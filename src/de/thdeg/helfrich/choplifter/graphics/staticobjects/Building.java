@@ -5,7 +5,7 @@ import de.thdeg.helfrich.choplifter.graphics.basics.GameObject;
 
 abstract class Building extends GameObject {
 
-    Building(GameView gameView){
+    Building(GameView gameView) {
         super(gameView);
     }
 }

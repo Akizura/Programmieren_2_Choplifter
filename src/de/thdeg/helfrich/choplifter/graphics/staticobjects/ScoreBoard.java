@@ -16,9 +16,10 @@ public class ScoreBoard extends Background {
 
     /**
      * Creates a new scoreboard.
+     *
      * @param gameView Window to show scoreboard on.
      */
-    public ScoreBoard(GameView gameView){
+    public ScoreBoard(GameView gameView) {
         super(gameView);
         this.deadHostages = 0;
         this.passengersInHelicopter = 0;

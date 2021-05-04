@@ -1,16 +1,17 @@
 package de.thdeg.helfrich.choplifter.graphics.mobileobjects;
 
-import de.thdeg.helfrich.choplifter.actions.Position;
+import de.thdeg.helfrich.choplifter.graphics.basics.MovingGameObject;
+import de.thdeg.helfrich.choplifter.graphics.basics.Position;
 import de.thdeg.helfrich.choplifter.gameview.GameView;
 import de.thdeg.helfrich.choplifter.graphics.basics.GameObject;
 
 /**
  * Represents a hostage in the game.
  */
-public class Hostage extends GameObject {
+public class Hostage extends GameObject implements MovingGameObject {
 
     private final static String HOSTAGE_RIGHT =
-            "                         LLL          \n" +
+                    "                         LLL          \n" +
                     "                        LWWWL         \n" +
                     "                       LWWWWWL        \n" +
                     "                      LWWWWWWWL       \n" +
@@ -54,7 +55,7 @@ public class Hostage extends GameObject {
                     "                        LL            \n";
 
     private final static String HOSTAGE_LEFT =
-            "          LLL                         \n" +
+                    "          LLL                         \n" +
                     "         LWWWL                        \n" +
                     "        LWWWWWL                       \n" +
                     "       LWWWWWWWL                      \n" +
@@ -98,7 +99,7 @@ public class Hostage extends GameObject {
                     "            LL                       ";
 
     private final static String HOSTAGE_WAITING =
-            "                 LLL                  \n" +
+                    "                 LLL                  \n" +
                     "                LWWWL                 \n" +
                     "               LWWWWWL                \n" +
                     "              LWWWWWWWL               \n" +
@@ -151,6 +152,7 @@ public class Hostage extends GameObject {
 
     /**
      * Creates a new Hostage
+     *
      * @param gameView GameView to show the Hostage on.
      */
     public Hostage(GameView gameView) {
@@ -175,12 +177,12 @@ public class Hostage extends GameObject {
      */
     @Override
     public void addToCanvas() {
-        if(flyFromLeftToRight == true) {
+        if (flyFromLeftToRight == true) {
             gameView.addBlockImageToCanvas(HOSTAGE_RIGHT, position.x, position.y, size, rotation);
         } else {
             gameView.addBlockImageToCanvas(HOSTAGE_LEFT, position.x, position.y, size, rotation);
         }
-        if(waiting == true){
+        if (waiting == true) {
             gameView.addBlockImageToCanvas(HOSTAGE_WAITING, position.x, position.y, size, rotation);
         }
     }
@@ -196,27 +198,33 @@ public class Hostage extends GameObject {
             flyFromLeftToRight = false;
             if (flyFromLeftToRight == false) {
                 position.left(speedInPixel);
-                if(position.x <= 0){
+                if (position.x <= 0) {
                     flyFromLeftToRight = true;
                 }
             }
         }
     }
 
-    private void runToHelicopter(){
+    private void runToHelicopter() {
 
     }
 
-    private void takeDamage(){
+    private void takeDamage() {
 
     }
 
-    private void waitingForHelp(){
+    private void waitingForHelp() {
+
+    }
+
+    @Override
+    public void updateStatus(){
 
     }
 
     /**
      * Shows a summary of the core information of Hostage.
+     *
      * @return Returns the name of the class and the current position.
      */
     @Override

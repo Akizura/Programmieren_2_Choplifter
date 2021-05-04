@@ -16,24 +16,52 @@ public class InputManager {
 
     /**
      * Creates a new InputManager.
-     * @param gameView
-     * @param chopper
+     *
+     * @param gameView Window to show game objects on.
+     * @param chopper  GameObject that is in the control of the player.
      */
-    public InputManager(GameView gameView, Chopper chopper){
+    public InputManager(GameView gameView, Chopper chopper) {
         this.gameView = gameView;
         this.chopper = chopper;
     }
 
+
+    /*void updateUserInputs() {
+        Integer[] keyCodesOfCurrentlyPressedKeys = gameView.getKeyCodesOfCurrentlyPressedKeys();
+        if (DIAGONALMOVEMENT == true) {
+            for (int keyCode : keyCodesOfCurrentlyPressedKeys) {
+                processKeyCode(keyCode);
+            }
+        } else {
+            if (keyCodesOfCurrentlyPressedKeys.length > 0) {
+                processKeyCode(keyCodesOfCurrentlyPressedKeys[0]);
+            }
+        }
+    }
+
+    private void processKeyCode(int keyCode) {
+        if (keyCode == KeyEvent.VK_LEFT) {
+            chopper.left();
+        } else if (keyCode == KeyEvent.VK_RIGHT) {
+            chopper.right();
+        } else if (keyCode == KeyEvent.VK_UP) {
+            chopper.up();
+        } else if (keyCode == KeyEvent.VK_DOWN) {
+            chopper.down();
+        } else if (keyCode == KeyEvent.VK_SPACE) {
+            chopper.shoot();
+        }
+    }*/
+
     /**
      * This enables the user to take action.
      */
-    public void updateUserInputs () {
+    public void updateUserInputs() {
         Integer[] pressedKeys = gameView.getKeyCodesOfCurrentlyPressedKeys();
-        if(DIAGONALMOVEMENT==true){
+        if (DIAGONALMOVEMENT == true) {
             directions();
-        }
-        else{
-            if(DIAGONALMOVEMENT==false) {
+        } else {
+            if (DIAGONALMOVEMENT == false) {
                 for (int keyCode : pressedKeys) {
                     if (keyCode == KeyEvent.VK_UP) {
                         chopper.up();

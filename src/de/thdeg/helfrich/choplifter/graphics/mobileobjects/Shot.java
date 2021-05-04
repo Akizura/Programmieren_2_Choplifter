@@ -4,14 +4,11 @@ import de.thdeg.helfrich.choplifter.gameview.GameView;
 import de.thdeg.helfrich.choplifter.graphics.basics.GameObject;
 
 /**
- * Represents the Enemies in the game.
+ * This class manages the shots of the jets, tanks and the chopper.
  */
-abstract class Enemy extends GameObject {
+public abstract class Shot extends GameObject {
 
-    protected boolean inRangeOfChopper;
-
-    protected Enemy(GameView gameView) {
+    protected Shot(GameView gameView){
         super(gameView);
-        this.inRangeOfChopper = false;
     }
 }
