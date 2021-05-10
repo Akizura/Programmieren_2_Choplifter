@@ -84,6 +84,16 @@ public abstract class GameObject {
     }
 
     /**
+     * Relocates the GameObject in the play world.
+     * @param adaptX Adapts the x-coordiante.
+     * @param adaptY Adapts the y-coordiante.
+     */
+    public void adaptPosition(double adaptX, double adaptY) {
+        position.x += adaptX;
+        position.y += adaptY;
+    }
+
+    /**
      * Counts the GameObjects.
      */
     public void countGameObjects() {

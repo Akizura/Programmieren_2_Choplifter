@@ -2,16 +2,10 @@ package de.thdeg.helfrich.choplifter.game.managers;
 
 import de.thdeg.helfrich.choplifter.gameview.GameView;
 import de.thdeg.helfrich.choplifter.graphics.basics.GameObject;
-import de.thdeg.helfrich.choplifter.graphics.basics.MovingGameObject;
 import de.thdeg.helfrich.choplifter.graphics.mobileobjects.*;
-import de.thdeg.helfrich.choplifter.graphics.staticobjects.Background;
-import de.thdeg.helfrich.choplifter.graphics.staticobjects.Barracks;
-import de.thdeg.helfrich.choplifter.graphics.staticobjects.Base;
-import de.thdeg.helfrich.choplifter.graphics.staticobjects.Border;
+import de.thdeg.helfrich.choplifter.graphics.staticobjects.*;
 
-import java.awt.Color;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * This class manages the game objects.
@@ -26,6 +20,8 @@ import java.util.List;
     private final Chopper chopper;
     private final Background background;
     private final Border border;
+    private final Ground ground;
+    private final ScoreBoard scoreBoard;
 
     private LinkedList<ChopperShot> chopperShots;
     private LinkedList<Jet> jets;
@@ -35,6 +31,7 @@ import java.util.List;
     private LinkedList<Drone> drones;
     private LinkedList<Hostage> hostages;
     private LinkedList<GameObject> gameObjects;
+    private LinkedList<MovingStar> movingStars;
 
     /**
      * Creates a new GameObjectManager.
@@ -49,6 +46,8 @@ import java.util.List;
         this.base = new Base(gameView);
         this.background = new Background(gameView);
         this.border = new Border(gameView);
+        this.ground = new Ground(gameView);
+        this.scoreBoard = new ScoreBoard(gameView);
 
         this.chopperShots = new LinkedList<>();
         this.jets = new LinkedList<>();
@@ -58,6 +57,7 @@ import java.util.List;
         this.drones = new LinkedList<>();
         this.hostages = new LinkedList<>();
         this.gameObjects = new LinkedList<>();
+        this.movingStars = new LinkedList<>();
     }
 
 
@@ -69,6 +69,9 @@ import java.util.List;
         gameObjects.clear();
 
         gameObjects.add(background);
+        gameObjects.addAll(movingStars);
+        gameObjects.add(scoreBoard);
+        gameObjects.add(ground);
         gameObjects.add(base);
         gameObjects.add(barracks);
         gameObjects.add(chopper);
@@ -84,6 +87,23 @@ import java.util.List;
         for (var gameObject : gameObjects) {
             gameObject.update();
             gameObject.addToCanvas();
+        }
+    }
+
+    /**
+     * Adapts the position of all game objects.
+     * @param adaptX Adaption on the x-coordinate.
+     * @param adaptY Adaption on the y-coordinate.
+     */
+    public void moveWorld(double adaptX, double adaptY){
+        for (GameObject gameObject : gameObjects) {
+            if (gameObject.getClass() != ScoreBoard.class
+                    && gameObject.getClass() != Chopper.class
+                    && gameObject.getClass() != Ground.class
+                    && gameObject.getClass() != Background.class
+            ) {
+                gameObject.adaptPosition(adaptX, adaptY);
+            }
         }
     }
 
@@ -153,10 +173,18 @@ import java.util.List;
     }
 
     /**
-     * Getter method for the LinkedList tankShots-
+     * Getter method for the LinkedList tankShots.
      * @return tankshots
      */
     public LinkedList<TankShot> getTankShots() {
         return tankShots;
+    }
+
+    /**
+     * Getter method for the LinkedList stars.
+     * @return stars
+     */
+    public LinkedList<MovingStar> getMovingStars() {
+        return movingStars;
     }
 }

@@ -26,8 +26,8 @@ public class ChopperShot extends Shot implements MovingGameObject {
         this.inputManager = inputManager;
         this.speedInPixel = 2.5;
         this.size = 2;
-        this.width = (int) (2 * size);
-        this.height = (int) (4 * size);
+        this.width = (int) (4 * size);
+        this.height = (int) (2 * size);
     }
 
     @Override
@@ -59,6 +59,6 @@ public class ChopperShot extends Shot implements MovingGameObject {
 
     @Override
     public void addToCanvas() {
-        gameView.addOvalToCanvas(position.x, position.y, width, height, 0, true, Color.WHITE);
+        gameView.addOvalToCanvas(position.x, position.y+30, width, height, 0, true, Color.WHITE);
     }
 }

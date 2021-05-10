@@ -81,7 +81,7 @@ public class Chopper extends GameObject {
         super(gameView);
         /*super.position = new Position(300, 300);*/
         super.position = new Position((GameView.WIDTH - width) / 2d, (GameView.HEIGHT - height) / 2d);
-        super.size = 0.75;
+        super.size = 3.5;
         super.width = (int) (15 * size);
         super.height = (int) (14 * size);
         super.rotation = 0;
@@ -108,13 +108,13 @@ public class Chopper extends GameObject {
     public void addToCanvas() {
         if (showGraphics == true) {
             if (moveLeft == true) {
-                gameView.addBlockImageToCanvas(CHOPPER_LEFT, position.x, position.y, 3.5, 0);
+                gameView.addBlockImageToCanvas(CHOPPER_LEFT, position.x, position.y, size, 0);
             }
             if (moveRight == true) {
-                gameView.addBlockImageToCanvas(CHOPPER_RIGHT, position.x, position.y, 3.5, 0);
+                gameView.addBlockImageToCanvas(CHOPPER_RIGHT, position.x, position.y, size, 0);
             }
             if (moveVertically == true) {
-                gameView.addBlockImageToCanvas(CHOPPER_FRONT, position.x, position.y, 3.5, 0);
+                gameView.addBlockImageToCanvas(CHOPPER_FRONT, position.x, position.y, size, 0);
             }
             /*if (shooting == true) {
                 gameView.addTextToCanvas("You are shooting", position.x, position.y, 20, Color.RED, rotation);
@@ -134,40 +134,48 @@ public class Chopper extends GameObject {
      * Moves the chopper leftwards.
      */
     public void left() {
-        position.left(speedInPixel);
         moveLeft = true;
         moveRight = false;
         moveVertically = false;
+        if(position.x > 300){
+        position.left(speedInPixel);
+        } else {
+            gamePlayManager.chopperMovingLeft(speedInPixel);
+        }
     }
 
     /**
      * Moves the chopper rightwards.
      */
     public void right() {
-        position.right(speedInPixel);
         moveRight = true;
         moveLeft = false;
         moveVertically = false;
+        if(position.x < GameView.WIDTH - width - 300){
+            position.right(speedInPixel);
+        } else {
+            gamePlayManager.chopperMovingRight(speedInPixel);
+        }
     }
 
     /**
      * Moves the copper upwards.
      */
     public void up() {
-        position.up(speedInPixel);
         moveVertically = true;
         moveLeft = false;
         moveRight = false;
+        position.up(speedInPixel);
     }
 
     /**
      * Moves the chopper downwards.
      */
     public void down() {
-        position.down(speedInPixel);
         moveVertically = true;
         moveLeft = false;
         moveRight = false;
+        position.down(speedInPixel);
     }
 
     /**

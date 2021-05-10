@@ -59,7 +59,7 @@ public class Drone extends Enemy implements MovingGameObject {
         this.random = new Random();
         /*super.position = new Position(48, 160);*/
         super.position = new Position(random.nextInt(gameView.WIDTH-width), random.nextInt(gameView.HEIGHT-200));
-        super.size = 1;
+        super.size = 0.9;
         super.width = (int) (35 * size);
         super.height = (int) (24 * size);
         super.rotation = 0;

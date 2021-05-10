@@ -71,7 +71,7 @@ public class Jet extends Shooter implements MovingGameObject {
         this.random = new Random();
         /*super.position = new Position(48, 250);*/
         super.position = new Position(random.nextInt(gameView.WIDTH-width), random.nextInt(gameView.HEIGHT-200));
-        super.size = 1.75;
+        super.size = 1.65;
         super.width = (int) (48 * size);
         super.height = (int) (19 * size);
         super.rotation = 0;
@@ -124,14 +124,14 @@ public class Jet extends Shooter implements MovingGameObject {
 
     @Override
     public void updateStatus(){
+        shoot();
+    }
+
+    private void shoot() {
         if (gameView.timerExpired("Shoot", objectID)) {
             gameView.setTimer("Shoot", objectID, 300);
             gamePlayManager.shootJetShot(position);
         }
-    }
-
-    private void shoot() {
-
     }
 
     private void takeDamage() {

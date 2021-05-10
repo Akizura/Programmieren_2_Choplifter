@@ -10,7 +10,7 @@ import java.awt.*;
  */
 public class Base extends Building {
 
-    private final static String BASE =
+    private final static String BASE1 =
                     "                                      K gg   bb    \n" +
                     "                                      Kgggg bbbb b \n" +
                     "                                      KggggWbbbgbb \n" +
@@ -20,6 +20,32 @@ public class Base extends Building {
                     "                                      KbWbWbWbWgbb \n" +
                     "                                      KW  bWb  Wgg \n" +
                     "                                      K    b    W  \n" +
+                    "                                      K            \n" +
+                    "                                      K            \n" +
+                    "                                      K            \n" +
+                    "                                      K            \n" +
+                    "   WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW   \n" +
+                    "  WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW  \n" +
+                    " KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK \n" +
+                    " KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK \n" +
+                    " KKKWWWWWWWWWKWWWWWWWWWKKKKKKWWWWWWWWWKWWWWWWWWWKK \n" +
+                    " KKKLLLLLLLLKKLLLLLLLLKKLLLKKLLLLLLLLKKLLLLLLLLKKK \n" +
+                    " KKKLLLLLLLLKKLLLLLLLLKKLLLKKLLLLLLLLKKLLLLLLLLKKK \n" +
+                    " KKKLLLLLLLLKKLLLLLLLLKKLLLKKLLLLLLLLKKLLLLLLLLKKK \n" +
+                    " KKKWWWWWWWWWKWWWWWWWWWKLLLKKWWWWWWWWWKWWWWWWWWWKK \n" +
+                    " KKKKKKKKKKKKKKKKKKKKKKKLLLKKKKKKKKKKKKKKKKKKKKKKK \n" +
+                    " WWWWWWWWWWWWWWWWWWWWWWWGGGWWWWWWWWWWWWWWWWWWWWWWW \n";
+
+    private final static String BASE2 =
+                    "                                      K ggggbb     \n" +
+                    "                                      KgggWbbbbgb  \n" +
+                    "                                      KgggWbbbgbbb \n" +
+                    "                                      KgggWbbgbbbb \n" +
+                    "                                      KggbWbgbbbbb \n" +
+                    "                                      KgbWbWbWgbbb \n" +
+                    "                                      KbWbWbWbWgbb \n" +
+                    "                                      KWbW   WbW   \n" +
+                    "                                      K b     b    \n" +
                     "                                      K            \n" +
                     "                                      K            \n" +
                     "                                      K            \n" +
@@ -59,6 +85,32 @@ public class Base extends Building {
         gameView.setColorForBlockImage('g', new Color(29, 233, 182));
     }
 
+    private void flickerFlag() {
+        boolean showBlock1 = false;
+        boolean showBlock2 = false;
+        if (gameView.timerExpired("flickeringFlag", "Base")) {
+            gameView.setTimer("flickeringFlag", "Base", 10);
+            showBlock1 = !showBlock1;
+        }
+        if (showBlock1) {
+            gameView.addBlockImageToCanvas(BASE1, position.x, position.y, size, rotation);
+        }
+        else {
+            gameView.addBlockImageToCanvas(BASE2, position.x, position.y, size, rotation);
+            }
+
+        if (gameView.timerExpired("flickeringFlag", "Base")) {
+            gameView.setTimer("flickeringFlag", "Base", 30);
+            showBlock2 = !showBlock2;
+        }
+        if (showBlock2) {
+            gameView.addBlockImageToCanvas(BASE2, position.x, position.y, size, rotation);
+        }
+        else {
+            gameView.addBlockImageToCanvas(BASE1, position.x, position.y, size, rotation);
+        }
+    }
+
     @Override
     public void updateStatus(){
 
@@ -66,7 +118,7 @@ public class Base extends Building {
 
     @Override
     public void addToCanvas() {
-        gameView.addBlockImageToCanvas(BASE, position.x, position.y, size, rotation);
+        flickerFlag();
     }
 
     @Override

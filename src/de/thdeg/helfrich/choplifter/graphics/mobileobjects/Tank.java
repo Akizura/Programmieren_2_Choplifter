@@ -76,7 +76,7 @@ public class Tank extends Shooter implements MovingGameObject {
         this.random = new Random();
         /*super.position = new Position(30, 470);*/
         super.position = new Position (random.nextInt(gameView.WIDTH-0)-0, gameView.HEIGHT-random.nextInt(130));
-        super.size = 1.6;
+        super.size = 1.5;
         super.width = (int) (45 * size);
         super.height = (int) (20 * size);
         super.rotation = 0;
@@ -140,10 +140,7 @@ public class Tank extends Shooter implements MovingGameObject {
 
     @Override
     public void updateStatus(){
-        if (gameView.timerExpired("Shoot", objectID)) {
-            gameView.setTimer("Shoot", objectID, 300);
-            gamePlayManager.shootTankShot(position);
-        }
+        shoot();
     }
 
     /**

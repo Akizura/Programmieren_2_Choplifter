@@ -1,9 +1,9 @@
 package de.thdeg.helfrich.choplifter.game.managers;
 
 import de.thdeg.helfrich.choplifter.gameview.GameView;
-import de.thdeg.helfrich.choplifter.game.managers.GameObjectManager;
 import de.thdeg.helfrich.choplifter.graphics.basics.Position;
 import de.thdeg.helfrich.choplifter.graphics.mobileobjects.*;
+import de.thdeg.helfrich.choplifter.graphics.staticobjects.MovingStar;
 
 import java.util.LinkedList;
 
@@ -14,9 +14,10 @@ public class GamePlayManager {
 
     private GameView gameView;
     private GameObjectManager gameObjectManager;
-    private boolean listHasBeenDeleted;
+    private boolean jetListHasBeenDeleted;
     private boolean tankListHasBeenDeleted;
     private boolean droneListHasBeenDeleted;
+    private boolean movingStarListHasBeenDeleted;
 
     /**
      * Creates a new GamePlayManager.
@@ -31,23 +32,70 @@ public class GamePlayManager {
     }
 
     /**
+     * Moves the World to the right.
+     * @param speedInPixel Speed to move the World
+     */
+    public void chopperMovingLeft(double speedInPixel){
+        gameObjectManager.moveWorld(speedInPixel, 0);
+    }
+
+    /**
+     * Moves the World to the left.
+     * @param speedInPixel Speed to move the World
+     */
+    public void chopperMovingRight(double speedInPixel){
+        gameObjectManager.moveWorld(-speedInPixel, 0);
+    }
+
+    /**
      * This method controls the whole game play.
      */
     public void updateGamePlay() {
         spawnAndDestroyJets();
         spawnAndDestroyTanks();
         spawnAndDestroyDrones();
+        spawnAndDestroyStars();
+    }
+
+    private void spawnAndDestroyStars(){
+        LinkedList<MovingStar> movingStars = gameObjectManager.getMovingStars();
+        if (gameObjectManager.getMovingStars().size() > 50){
+            gameObjectManager.getMovingStars().removeFirst();
+            System.out.println("removedFirstStar");
+        }
+
+        if(gameView.timerExpired("spawnStar", "GamePlayManager")){
+            gameView.setTimer("spawnStar", "GamePlayManager", 300);
+            MovingStar movingStar = new MovingStar(gameView);
+            movingStar.setGamePlayManager(this);
+            movingStars.add(movingStar);
+            System.out.println("spawnedStar");
+        }
+
+        if (gameView.timerExpired("destroyStar", "GamePlayManager")){
+            gameView.setTimer("destroyStar", "GamePlayManager", 1000);
+            if(!movingStars.isEmpty()){
+                movingStars.remove(0);
+                System.out.println("removedStar");
+            }
+        }
+
+        if((movingStarListHasBeenDeleted == false) && gameView.getGameTimeInMilliseconds() > 10_000){
+            movingStars.clear();
+            movingStarListHasBeenDeleted = true;
+            System.out.println("clearedStars");
+        }
     }
 
     private void spawnAndDestroyJets(){
         LinkedList<Jet> jets = gameObjectManager.getJets();
-        if (gameObjectManager.getJets().size() > 30){
+        if (gameObjectManager.getJets().size() > 10){
             gameObjectManager.getJets().removeFirst();
             System.out.println("removedFirstJet");
         }
 
         if(gameView.timerExpired("spawnJet", "GamePlayManager")){
-            gameView.setTimer("spawnJet", "GamePlayManager", 1000);
+            gameView.setTimer("spawnJet", "GamePlayManager", 3000);
             Jet jet = new Jet(gameView);
             jet.setGamePlayManager(this);
             jets.add(jet);
@@ -55,35 +103,35 @@ public class GamePlayManager {
         }
 
         if (gameView.timerExpired("destroyJet", "GamePlayManager")){
-            gameView.setTimer("destroyJet", "GamePlayManager", 5000);
+            gameView.setTimer("destroyJet", "GamePlayManager", 7000);
             if(!jets.isEmpty()){
                 jets.remove(0);
                 System.out.println("removedJet");
             }
         }
 
-        if((listHasBeenDeleted == false) && gameView.getGameTimeInMilliseconds() > 10_000){
+        if((jetListHasBeenDeleted == false) && gameView.getGameTimeInMilliseconds() > 10_000){
             jets.clear();
-            listHasBeenDeleted = true;
+            jetListHasBeenDeleted = true;
             System.out.println("cleared");
         }
     }
 
     private void spawnAndDestroyTanks(){
         LinkedList<Tank> tanks = gameObjectManager.getTanks();
-        if (gameObjectManager.getTanks().size() > 30){
+        if (gameObjectManager.getTanks().size() > 10){
             gameObjectManager.getTanks().removeFirst();
         }
 
         if(gameView.timerExpired("spawnTank", "GamePlayManager")){
-            gameView.setTimer("spawnTank", "GamePlayManager", 1000);
+            gameView.setTimer("spawnTank", "GamePlayManager", 3000);
             Tank tank = new Tank(gameView);
             tank.setGamePlayManager(this);
             tanks.add(tank);
         }
 
         if (gameView.timerExpired("destroyTank", "GamePlayManager")){
-            gameView.setTimer("destroyTank", "GamePlayManager", 5000);
+            gameView.setTimer("destroyTank", "GamePlayManager", 7000);
             if(!tanks.isEmpty()){
                 tanks.remove(0);
             }
@@ -97,19 +145,19 @@ public class GamePlayManager {
 
     private void spawnAndDestroyDrones(){
         LinkedList<Drone> drones = gameObjectManager.getDrones();
-        if (gameObjectManager.getDrones().size() > 30){
+        if (gameObjectManager.getDrones().size() > 5){
             gameObjectManager.getDrones().removeFirst();
         }
 
         if(gameView.timerExpired("spawnDrone", "GamePlayManager")){
-            gameView.setTimer("spawnDrone", "GamePlayManager", 2000);
+            gameView.setTimer("spawnDrone", "GamePlayManager", 5000);
             Drone drone = new Drone(gameView);
             drone.setGamePlayManager(this);
             drones.add(drone);
         }
 
         if (gameView.timerExpired("destroyDrone", "GamePlayManager")){
-            gameView.setTimer("destroyDrone", "GamePlayManager", 5000);
+            gameView.setTimer("destroyDrone", "GamePlayManager", 8000);
             if(!drones.isEmpty()){
                 drones.remove(0);
             }
