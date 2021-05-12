@@ -65,12 +65,12 @@ public class Background extends GameObject {
     public void addToCanvas() {
         addColorFadeToCanvas(Color.BLACK, new Color(26, 134, 116));
         /*gameView.addRectangleToCanvas(0, 440, 960, 100, 5, true, Color.DARK_GRAY);*/
-        gameView.addBlockImageToCanvas(MOUNTAIN, 450, 420, 1, 0);
+        gameView.addBlockImageToCanvas(MOUNTAIN, 350, 420, 1, 0);
         gameView.addBlockImageToCanvas("SKYLINE", 100, GameView.HEIGHT-100, 5, 0);
     }
 
     private void addColorFadeToCanvas(Color top, Color bottom) {
-        float numberOfcoloredRectangles = 60;
+        float numberOfcoloredRectangles = 120;
         int heigtOfSingleColorRectangle = Math.round((GameView.HEIGHT - 50) / numberOfcoloredRectangles);
         int redDiff = bottom.getRed() - top.getRed();
         int greenDiff = bottom.getGreen() - top.getGreen();
@@ -87,10 +87,6 @@ public class Background extends GameObject {
                     heigtOfSingleColorRectangle, 0, true,
                     new Color(redValue, greenValue, blueValue));
         }
-    }
-
-    private void blinkManager() {
-
     }
 
     @Override

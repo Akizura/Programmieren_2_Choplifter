@@ -22,6 +22,7 @@ import java.util.LinkedList;
     private final Border border;
     private final Ground ground;
     private final ScoreBoard scoreBoard;
+    private final FixedStar fixedStar;
 
     private LinkedList<ChopperShot> chopperShots;
     private LinkedList<Jet> jets;
@@ -48,6 +49,7 @@ import java.util.LinkedList;
         this.border = new Border(gameView);
         this.ground = new Ground(gameView);
         this.scoreBoard = new ScoreBoard(gameView);
+        this.fixedStar = new FixedStar(gameView);
 
         this.chopperShots = new LinkedList<>();
         this.jets = new LinkedList<>();
@@ -69,20 +71,23 @@ import java.util.LinkedList;
         gameObjects.clear();
 
         gameObjects.add(background);
+        gameObjects.add(fixedStar);
         gameObjects.addAll(movingStars);
         gameObjects.add(scoreBoard);
         gameObjects.add(ground);
+        gameObjects.add(border);
         gameObjects.add(base);
         gameObjects.add(barracks);
         gameObjects.add(chopper);
 
+        gameObjects.addAll(hostages);
         gameObjects.addAll(chopperShots);
         gameObjects.addAll(drones);
         gameObjects.addAll(tanks);
         gameObjects.addAll(tankShots);
         gameObjects.addAll(jets);
         gameObjects.addAll(jetShots);
-        gameObjects.addAll(hostages);
+
 
         for (var gameObject : gameObjects) {
             gameObject.update();
@@ -101,6 +106,7 @@ import java.util.LinkedList;
                     && gameObject.getClass() != Chopper.class
                     && gameObject.getClass() != Ground.class
                     && gameObject.getClass() != Background.class
+                    && gameObject.getClass() != FixedStar.class
             ) {
                 gameObject.adaptPosition(adaptX, adaptY);
             }
@@ -186,5 +192,9 @@ import java.util.LinkedList;
      */
     public LinkedList<MovingStar> getMovingStars() {
         return movingStars;
+    }
+
+    public Barracks getBarracks() {
+        return barracks;
     }
 }

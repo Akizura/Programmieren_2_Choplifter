@@ -55,13 +55,31 @@ public class GamePlayManager {
         spawnAndDestroyTanks();
         spawnAndDestroyDrones();
         spawnAndDestroyStars();
+        spawnHostages();
+    }
+
+
+    private void spawnHostages() {
+        LinkedList<Hostage> hostages = gameObjectManager.getHostages();
+        boolean barracksEmpty = false;
+        if (gameObjectManager.getHostages().size() == 16){
+            barracksEmpty = true;
+        }
+
+        if (gameObjectManager.getBarracks().getDestroyed() == true && barracksEmpty == false) {
+            if (gameView.timerExpired("spawnHostage", "GamePlayManager")) {
+                gameView.setTimer("spawnHostage", "GamePlayManager", 3000);
+                Hostage hostage = new Hostage(gameView);
+                hostage.setGamePlayManager(this);
+                hostages.add(hostage);
+            }
+        }
     }
 
     private void spawnAndDestroyStars(){
         LinkedList<MovingStar> movingStars = gameObjectManager.getMovingStars();
         if (gameObjectManager.getMovingStars().size() > 50){
             gameObjectManager.getMovingStars().removeFirst();
-            System.out.println("removedFirstStar");
         }
 
         if(gameView.timerExpired("spawnStar", "GamePlayManager")){
@@ -69,29 +87,25 @@ public class GamePlayManager {
             MovingStar movingStar = new MovingStar(gameView);
             movingStar.setGamePlayManager(this);
             movingStars.add(movingStar);
-            System.out.println("spawnedStar");
         }
 
         if (gameView.timerExpired("destroyStar", "GamePlayManager")){
             gameView.setTimer("destroyStar", "GamePlayManager", 1000);
             if(!movingStars.isEmpty()){
                 movingStars.remove(0);
-                System.out.println("removedStar");
             }
         }
 
         if((movingStarListHasBeenDeleted == false) && gameView.getGameTimeInMilliseconds() > 10_000){
             movingStars.clear();
             movingStarListHasBeenDeleted = true;
-            System.out.println("clearedStars");
         }
     }
 
     private void spawnAndDestroyJets(){
         LinkedList<Jet> jets = gameObjectManager.getJets();
-        if (gameObjectManager.getJets().size() > 10){
+        if (gameObjectManager.getJets().size() > 5){
             gameObjectManager.getJets().removeFirst();
-            System.out.println("removedFirstJet");
         }
 
         if(gameView.timerExpired("spawnJet", "GamePlayManager")){
@@ -99,27 +113,24 @@ public class GamePlayManager {
             Jet jet = new Jet(gameView);
             jet.setGamePlayManager(this);
             jets.add(jet);
-            System.out.println("spawnedJet");
         }
 
         if (gameView.timerExpired("destroyJet", "GamePlayManager")){
             gameView.setTimer("destroyJet", "GamePlayManager", 7000);
             if(!jets.isEmpty()){
                 jets.remove(0);
-                System.out.println("removedJet");
             }
         }
 
         if((jetListHasBeenDeleted == false) && gameView.getGameTimeInMilliseconds() > 10_000){
             jets.clear();
             jetListHasBeenDeleted = true;
-            System.out.println("cleared");
         }
     }
 
     private void spawnAndDestroyTanks(){
         LinkedList<Tank> tanks = gameObjectManager.getTanks();
-        if (gameObjectManager.getTanks().size() > 10){
+        if (gameObjectManager.getTanks().size() > 5){
             gameObjectManager.getTanks().removeFirst();
         }
 
@@ -175,7 +186,7 @@ public class GamePlayManager {
      * @param startPosition The position to spawn the shot from.
      */
     public void shootChopperShot(Position startPosition){
-        ChopperShot chopperShot = new ChopperShot(gameView);
+        ChopperShot chopperShot = new ChopperShot(gameView, gameObjectManager.getChopper(), gameObjectManager);
         chopperShot.getPosition().x = startPosition.x;
         chopperShot.getPosition().y = startPosition.y;
         chopperShot.setGamePlayManager(this);
@@ -190,13 +201,13 @@ public class GamePlayManager {
     public void shootJetShot(Position startPosition){
         JetShot jetShot1 = new JetShot(gameView);
         jetShot1.getPosition().x = startPosition.x;
-        jetShot1.getPosition().y = startPosition.y + 19;
+        jetShot1.getPosition().y = startPosition.y+35;
         jetShot1.setGamePlayManager(this);
         gameObjectManager.getJetShots().add(jetShot1);
 
         JetShot jetShot2 = new JetShot(gameView);
-        jetShot2.getPosition().x = startPosition.x + 50;
-        jetShot2.getPosition().y = startPosition.y + 19;
+        jetShot2.getPosition().x = startPosition.x;
+        jetShot2.getPosition().y = startPosition.y;
         jetShot2.setGamePlayManager(this);
         gameObjectManager.getJetShots().add(jetShot2);
     }

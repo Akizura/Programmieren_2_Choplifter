@@ -38,7 +38,7 @@ public class Barracks extends Building {
                     " WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW \n" +
                     " WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW ";
 
-    private final static String BARRACKS_ONFIRE =
+    private final static String BARRACKS_ONFIRE1 =
                     "                    WWWWWWWWWW                    \n" +
                     "                  WWWWWWWWWWWWWW                  \n" +
                     "    KKKKK       WWWWWLLLLYLLLWWWWW                \n" +
@@ -66,6 +66,34 @@ public class Barracks extends Building {
                     " WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW \n" +
                     " WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW ";
 
+    private final static String BARRACKS_ONFIRE2 =
+            "                    WWWWWWWWWW                    \n" +
+                    "                  WWWWWWWWWWWWWW                  \n" +
+                    "    KKKKK       WWWWWLLLLLLLLWWWWW                \n" +
+                    "    KKKKK     WWWWWSSLLLLLLLLSSWWWWW              \n" +
+                    "    KKKKK   WWWWWSSSSLLLLLLLLSSSSWWWWW            \n" +
+                    "      KKK WWWWWSSSSSSLLLLLLLLSSSSSSWWWWW          \n" +
+                    "      KKWWWWWSSSSYSSSLLLLLLLLSSSSSSSSWWWWW        \n" +
+                    "      WWWWWSSSSSSSSSSLLLLLLLLSSSSSSSSSSWWWWW      \n" +
+                    "    WWWWWSSSSSSSSSSSSLLLLLLLLSSSSSSSSSSSSWWWWW    \n" +
+                    "  WWWWWSSSSSSSSSSSSSSLLLLLLLSSSSSSSSSSSSSSWWWWW  \n" +
+                    " WWWWSSSSSSSLLLLSSSSSLLLLLLLLSSSSSSSSSSSSSSSSWWWW \n" +
+                    " WWSSSSSSSSSLLLLLLSSSLLLLLLLLSSSSSSLLLLSSSSSSSSWW \n" +
+                    " SSSSSSSSSSSLLLLLLLLLLLLLLLLLLLLLLLLLLLSSSSSSSSSS \n" +
+                    " SSSSSSLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLSSSSSSSSSSSS \n" +
+                    " SSSSSSLLLLLLLLLLLLLLLLLLLLLLLLLLLLSSSSSSSSSSSSSSS \n" +
+                    " SSSSSSSSLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLSSSSSSSS \n" +
+                    " SSSSSSSSSLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLSSSSSSSS \n" +
+                    " SSSSSSSSSSSSLLLLLLLLLLLLLLLLLLLLLLLSSSSSSSSSSSSS \n" +
+                    " SSSSSSSSSLLLLLLLLLLLLLLLLLLLLLLLLLSSSSSSSSSSSSSS \n" +
+                    " SSSSSSSLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLSSSSSSSSSS \n" +
+                    " SSSSSSSLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLSSSSSSS \n" +
+                    " SSSSSSSSSSSSLLLLLLLLLLLLLLLLLLLLLLLLLLLLLSSSSSSS \n" +
+                    " SSSSSSSSSSLLLLLLLLLLLLLLLLLLLLLLLLLLLSSSSSSSSSSS \n" +
+                    " SSSSSSSSSLLLLLLLLLLLLLLLLLLLLLLLSSSSSSSSSSSSSSSS \n" +
+                    " WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW \n" +
+                    " WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW ";
+
     private boolean closed;
     private int takenDamage;
     private boolean destroyed;
@@ -85,7 +113,7 @@ public class Barracks extends Building {
         super.height = (int) (25 * size);
         super.rotation = 0;
         this.closed = true;
-        this.destroyed = false;
+        this.destroyed = true;
         this.hostagesInside = 16;
         gameView.setColorForBlockImage('W', Color.WHITE);
         gameView.setColorForBlockImage('L', Color.BLACK);
@@ -104,7 +132,21 @@ public class Barracks extends Building {
         if (destroyed == false) {
             gameView.addBlockImageToCanvas(BARRACKS_CLOSED, position.x, position.y, size, rotation);
         } else {
-            gameView.addBlockImageToCanvas(BARRACKS_ONFIRE, position.x, position.y, size, rotation);
+           onFire();
+        }
+    }
+
+    private void onFire(){
+        boolean showBlock1 = false;
+        if (gameView.timerExpired("onFire", "Barracks")) {
+            gameView.setTimer("onFire", "Barracks", 14);
+            showBlock1 = !showBlock1;
+        }
+        if (showBlock1) {
+            gameView.addBlockImageToCanvas(BARRACKS_ONFIRE1, position.x, position.y, size, rotation);
+        }
+        else {
+            gameView.addBlockImageToCanvas(BARRACKS_ONFIRE2, position.x, position.y, size, rotation);
         }
     }
 
@@ -119,6 +161,8 @@ public class Barracks extends Building {
     private boolean isDestroyed() {
         return destroyed;
     }
+
+    public boolean getDestroyed(){return destroyed;}
 
     private void takeDamage() {
 

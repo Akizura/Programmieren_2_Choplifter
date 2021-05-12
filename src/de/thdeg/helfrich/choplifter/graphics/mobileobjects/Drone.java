@@ -58,7 +58,7 @@ public class Drone extends Enemy implements MovingGameObject {
         super.gameView = gameView;
         this.random = new Random();
         /*super.position = new Position(48, 160);*/
-        super.position = new Position(random.nextInt(gameView.WIDTH-width), random.nextInt(gameView.HEIGHT-200));
+        super.position = new Position(random.nextInt(gameView.WIDTH-width), (65+height)+random.nextInt(gameView.HEIGHT-200));
         super.size = 0.9;
         super.width = (int) (35 * size);
         super.height = (int) (24 * size);
@@ -69,7 +69,7 @@ public class Drone extends Enemy implements MovingGameObject {
         this.exploded = false;
         super.inRangeOfChopper = false;
         this.objectID = "Drone" + position.x + position.y;
-        gameView.setColorForBlockImage('R', Color.RED);
+        gameView.setColorForBlockImage('R', new Color(187, 35, 75));
         gameView.setColorForBlockImage('L', Color.BLACK);
         gameView.setColorForBlockImage('W', Color.WHITE);
         gameView.setColorForBlockImage('Y', Color.YELLOW);

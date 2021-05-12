@@ -158,12 +158,12 @@ public class Hostage extends GameObject implements MovingGameObject {
     public Hostage(GameView gameView) {
         super(gameView);
         super.gameView = gameView;
-        super.position = new Position(500, 430);
+        super.position = new Position(200, 430);
         super.size = 0.75;
         super.width = (int) (38 * size);
         super.height = (int) (42 * size);
         super.rotation = 0;
-        super.speedInPixel = 0.6;
+        super.speedInPixel = 0.3;
         this.flyFromLeftToRight = true;
         this.waiting = false;
         this.touchedByHelicopter = false;

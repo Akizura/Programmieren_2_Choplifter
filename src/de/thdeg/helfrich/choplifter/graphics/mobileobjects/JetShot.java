@@ -10,6 +10,8 @@ import java.awt.*;
  */
 public class JetShot extends Shot implements MovingGameObject {
 
+    Jet jet;
+
     /**
      * Creates the shots of the jets.
      * @param gameView Window to show the jetShots on.
@@ -25,12 +27,16 @@ public class JetShot extends Shot implements MovingGameObject {
 
     @Override
     public void updatePosition() {
-        position.down(speedInPixel);
+        position.right(speedInPixel);
+        /*if(jet.getMoveFromLeftToRight() == true){
+            position.right(speedInPixel);
+        }
+        else{position.left(speedInPixel);}*/
     }
 
     @Override
     public void updateStatus() {
-        if (position.y > GameView.HEIGHT - 30) {
+        if (position.y > GameView.HEIGHT) {
             gamePlayManager.destroy(this);
         }
     }

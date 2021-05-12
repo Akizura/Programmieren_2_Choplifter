@@ -22,12 +22,17 @@ public class Ground extends Background{
     }
 
     @Override
+    public Position getPosition() {
+        return super.getPosition();
+    }
+
+    @Override
     public void updateStatus() {
 
     }
 
     @Override
     public void addToCanvas() {
-        gameView.addRectangleToCanvas(position.x, position.y, width, height, 0, true, Color.pink);
+        gameView.addRectangleToCanvas(position.x, position.y, width, height, 0, true, new Color(250, 161, 161));
     }
 }

@@ -54,6 +54,53 @@ public class Jet extends Shooter implements MovingGameObject {
                     "     LLLLLaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaL  \n" +
                     "         LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL  \n";
 
+
+    private final static String JET_SIDE_L =
+                    "                              WWWWWWWWW             \n" +
+                    "                                   DDDD             \n" +
+                    "                                  DDDDD             \n" +
+                    "                                DDDDDDD             \n" +
+                    "                              DDDDDDDDD             \n" +
+                    "                            DDDDDDDDDDD          eee\n" +
+                    "                         DDDDDDDDDDDDDD        eeee \n" +
+                    "                       DDDDDDDDDDDDDDDD       eeee  \n" +
+                    "    LeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeW   \n" +
+                    " LEEEEEELddddddLEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEWW   \n" +
+                    "LffffffLddddddddLffffffffffffffffffffffffffffffWW   \n" +
+                    " LEEEEEELddddddLEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEWW   \n" +
+                    "   LeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeW   \n" +
+                    "                       DDDDDDDDDDDDDDDD       eeee  \n" +
+                    "                         DDDDDDDDDDDDDD        eeee \n" +
+                    "                            DDDDDDDDDDD          eee\n" +
+                    "                              DDDDDDDDD             \n" +
+                    "                                DDDDDDD             \n" +
+                    "                                  DDDDD             \n" +
+                    "                                   DDDD             \n" +
+                    "                              WWWWWWWWW             ";
+
+    private final static String JET_SIDE_R =
+                    "             WWWWWWWWW                    \n" +
+                    "             DDDD                         \n" +
+                    "             DDDDD                        \n" +
+                    "             DDDDDDD                      \n" +
+                    "             DDDDDDDDD                    \n" +
+                    "eee          DDDDDDDDDDD                  \n" +
+                    " eeee        DDDDDDDDDDDDDD               \n" +
+                    "  eeee       DDDDDDDDDDDDDDDD             \n" +
+                    "   WeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeL   \n" +
+                    "   WWEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEELddddddLEEEEEEL \n" +
+                    "   WWffffffffffffffffffffffffffffffLddddddddLffffffL\n" +
+                    "   WWEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEELddddddLEEEEEEL \n" +
+                    "   WeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeL   \n" +
+                    "  eeee        DDDDDDDDDDDDDDDD             \n" +
+                    " eeee         DDDDDDDDDDDDDD               \n" +
+                    "eee           DDDDDDDDDDD                  \n" +
+                    "              DDDDDDDDD                    \n" +
+                    "              DDDDDDD                      \n" +
+                    "              DDDDD                        \n" +
+                    "              DDDD                         \n" +
+                    "              WWWWWWWWW                    ";
+
     private int bullets;
     private int takenDamage;
     private boolean destroyed;
@@ -70,7 +117,7 @@ public class Jet extends Shooter implements MovingGameObject {
         super(gameView);
         this.random = new Random();
         /*super.position = new Position(48, 250);*/
-        super.position = new Position(random.nextInt(gameView.WIDTH-width), random.nextInt(gameView.HEIGHT-200));
+        super.position = new Position(random.nextInt(gameView.WIDTH-width), 65+height+random.nextInt(gameView.HEIGHT-200));
         super.size = 1.65;
         super.width = (int) (48 * size);
         super.height = (int) (19 * size);
@@ -98,9 +145,11 @@ public class Jet extends Shooter implements MovingGameObject {
     @Override
     public void addToCanvas() {
         if (moveFromLeftToRight == true) {
-            gameView.addBlockImageToCanvas(JET_RIGHT, position.x, position.y, size, rotation);
+            /*gameView.addBlockImageToCanvas(JET_RIGHT, position.x, position.y, size, rotation);*/
+            gameView.addBlockImageToCanvas(JET_SIDE_R, position.x, position.y, size, rotation);
         } else {
-            gameView.addBlockImageToCanvas(JET_LEFT, position.x, position.y, size, rotation);
+            /*gameView.addBlockImageToCanvas(JET_LEFT, position.x, position.y, size, rotation);*/
+            gameView.addBlockImageToCanvas(JET_SIDE_L, position.x, position.y, size, rotation);
         }
     }
 
@@ -129,13 +178,17 @@ public class Jet extends Shooter implements MovingGameObject {
 
     private void shoot() {
         if (gameView.timerExpired("Shoot", objectID)) {
-            gameView.setTimer("Shoot", objectID, 300);
+            gameView.setTimer("Shoot", objectID, 1000);
             gamePlayManager.shootJetShot(position);
         }
     }
 
     private void takeDamage() {
 
+    }
+
+    public boolean getMoveFromLeftToRight(){
+        return moveFromLeftToRight;
     }
 
     /**

@@ -87,7 +87,7 @@ public class MovingStar extends Background {
         super.size = 0.45;
         super.width = (int) (35 * size);
         super.height = (int) (28 * size);
-        super.rotation = 0;
+        super.rotation = random.nextInt(90);
         this.objectID = "STAR" + position.x + position.y;
         gameView.setColorForBlockImage('z', new Color(104, 0, 102));
     }

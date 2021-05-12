@@ -30,7 +30,7 @@ public class TankShot extends Shot implements MovingGameObject {
 
     @Override
     public void updateStatus() {
-        if (position.y < 0) {
+        if (position.y < 80) {
             gamePlayManager.destroy(this);
         }
     }

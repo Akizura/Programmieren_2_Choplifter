@@ -189,6 +189,22 @@ public class Chopper extends GameObject {
         }
     }
 
+    public double getHeight(){
+        return height;
+    }
+
+    public boolean getMoveLeft(){
+        return moveLeft;
+    }
+
+    public boolean getMoveRight(){
+        return moveRight;
+    }
+
+    public boolean getMoveVertically(){
+        return moveVertically;
+    }
+
     @Override
     public void updateStatus(){
 

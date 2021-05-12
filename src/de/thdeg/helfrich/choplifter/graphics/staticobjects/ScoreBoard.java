@@ -83,11 +83,13 @@ public class ScoreBoard extends Background {
         /*gameView.addPolygonToCanvas(new double[]{460, 450, 460, 470}, new double[]{30, 40, 50, 40}, 0, true, Color.WHITE);*/
         gameView.addBlockImageToCanvas(HEART, 685, 30, 1.75, 0);
 
+        //Rectangles
         gameView.addRectangleToCanvas(50, 30, 150, 20, 1, true, new Color(118, 66, 43));
         gameView.addRectangleToCanvas(290, 30, 150, 20, 1, true, new Color(118, 66, 43));
         gameView.addRectangleToCanvas(525, 30, 150, 20, 1, true, new Color(118, 66, 43));
         gameView.addRectangleToCanvas(760, 30, 150, 20, 1, true, new Color(118, 66, 43));
 
+        //Framing lines
         gameView.addLineToCanvas(50.0, 20.0, 910.0, 20.0, 3, Color.YELLOW);
         gameView.addLineToCanvas(50.0, 63.0, 910.0, 63.0, 3, Color.YELLOW);
         gameView.addPolyLineToCanvas(new double[]{50.0, 35.0, 50.0}, new double[]{20.0, 41.5, 63.0}, 3, Color.YELLOW);
