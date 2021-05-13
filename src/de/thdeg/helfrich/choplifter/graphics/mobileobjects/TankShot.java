@@ -1,6 +1,7 @@
 package de.thdeg.helfrich.choplifter.graphics.mobileobjects;
 
 import de.thdeg.helfrich.choplifter.gameview.GameView;
+import de.thdeg.helfrich.choplifter.graphics.basics.CollidableGameObject;
 import de.thdeg.helfrich.choplifter.graphics.basics.MovingGameObject;
 
 import java.awt.*;
@@ -21,6 +22,17 @@ public class TankShot extends Shot implements MovingGameObject {
         this.rotation = 0;
         this.width = (int) (5 * size);
         this.height = (int) (3 * size);
+        super.hitBox = new Rectangle((int) position.x, (int) position.y,width, height);
+    }
+
+    @Override
+    protected void updateHitBoxPosition() {
+        hitBox = new Rectangle((int) position.x-1, (int) position.y-1,hitBox.width, hitBox.height);
+    }
+
+    @Override
+    protected void reactToCollision(CollidableGameObject otherObject) {
+
     }
 
     @Override
@@ -38,7 +50,7 @@ public class TankShot extends Shot implements MovingGameObject {
     @Override
     public void addToCanvas() {
         gameView.addOvalToCanvas(position.x, position.y, width, height, 0, true, Color.WHITE);
-
+        gameView.addRectangleToCanvas(hitBox.x, hitBox.y, hitBox.width, hitBox.height, 1, false, Color.RED);
     }
 
 }

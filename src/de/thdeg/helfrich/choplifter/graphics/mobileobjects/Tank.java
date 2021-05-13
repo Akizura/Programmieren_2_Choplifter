@@ -1,5 +1,6 @@
 package de.thdeg.helfrich.choplifter.graphics.mobileobjects;
 
+import de.thdeg.helfrich.choplifter.graphics.basics.CollidableGameObject;
 import de.thdeg.helfrich.choplifter.graphics.basics.MovingGameObject;
 import de.thdeg.helfrich.choplifter.graphics.basics.Position;
 import de.thdeg.helfrich.choplifter.gameview.GameView;
@@ -85,6 +86,7 @@ public class Tank extends Shooter implements MovingGameObject {
         this.destroyed = false;
         super.shotsPerSecond = 2;
         super.inRangeOfChopper = false;
+        super.hitBox = new Rectangle((int) position.x, (int) position.y, width-20, height-10);
         this.objectID = "Tank" + position.x + position.y;
         gameView.setColorForBlockImage('K', new Color(94, 55, 40));
         gameView.setColorForBlockImage('n', new Color(84, 22, 7));
@@ -97,6 +99,16 @@ public class Tank extends Shooter implements MovingGameObject {
         gameView.setColorForBlockImage('W', Color.WHITE);
     }
 
+    @Override
+    protected void updateHitBoxPosition() {
+        hitBox = new Rectangle((int) position.x+10, (int) position.y+10, hitBox.width, hitBox.height);
+    }
+
+    @Override
+    protected void reactToCollision(CollidableGameObject otherObject) {
+
+    }
+
     /**
      * Draws the tank to the canvas.
      */
@@ -107,6 +119,7 @@ public class Tank extends Shooter implements MovingGameObject {
         } else {
             gameView.addBlockImageToCanvas(TANK_LEFT, position.x, position.y, size, rotation);
         }
+        gameView.addRectangleToCanvas(hitBox.x, hitBox.y, hitBox.width, hitBox.height, 1, false, Color.RED);
     }
 
     /**

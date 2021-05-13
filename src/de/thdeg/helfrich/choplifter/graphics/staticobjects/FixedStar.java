@@ -67,7 +67,6 @@ public class FixedStar extends Background {
             System.out.println("fixedStar1 is showing");
         }
 
-
         /*boolean showBlock2 = false;
         this.position = new Position(600, 200);
         getObjectID();

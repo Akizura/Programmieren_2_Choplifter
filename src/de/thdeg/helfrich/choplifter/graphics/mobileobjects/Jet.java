@@ -1,5 +1,6 @@
 package de.thdeg.helfrich.choplifter.graphics.mobileobjects;
 
+import de.thdeg.helfrich.choplifter.graphics.basics.CollidableGameObject;
 import de.thdeg.helfrich.choplifter.graphics.basics.MovingGameObject;
 import de.thdeg.helfrich.choplifter.graphics.basics.Position;
 import de.thdeg.helfrich.choplifter.gameview.GameView;
@@ -122,11 +123,12 @@ public class Jet extends Shooter implements MovingGameObject {
         super.width = (int) (48 * size);
         super.height = (int) (19 * size);
         super.rotation = 0;
-        super.speedInPixel = 2;
+        super.speedInPixel = 1;
         this.moveFromLeftToRight = true;
         this.destroyed = false;
         super.shotsPerSecond = 2;
         super.inRangeOfChopper = false;
+        super.hitBox = new Rectangle((int) position.x, (int) position.y, width, height-23);
         this.objectID = "Jet" + position.x + position.y;
         gameView.setColorForBlockImage('d', new Color(64, 195, 255));
         gameView.setColorForBlockImage('A', new Color(74, 20, 140));
@@ -137,6 +139,16 @@ public class Jet extends Shooter implements MovingGameObject {
         gameView.setColorForBlockImage('f', new Color(255, 190, 231));
         gameView.setColorForBlockImage('F', new Color(186, 104, 200));
         gameView.setColorForBlockImage('L', Color.BLACK);
+    }
+
+    @Override
+    protected void updateHitBoxPosition() {
+        hitBox = new Rectangle((int) position.x+5, (int) position.y+13, hitBox.width, hitBox.height);
+    }
+
+    @Override
+    protected void reactToCollision(CollidableGameObject otherObject) {
+
     }
 
     /**
@@ -151,6 +163,7 @@ public class Jet extends Shooter implements MovingGameObject {
             /*gameView.addBlockImageToCanvas(JET_LEFT, position.x, position.y, size, rotation);*/
             gameView.addBlockImageToCanvas(JET_SIDE_L, position.x, position.y, size, rotation);
         }
+        gameView.addRectangleToCanvas(hitBox.x, hitBox.y, hitBox.width, hitBox.height, 1, false, Color.RED);
     }
 
     /**

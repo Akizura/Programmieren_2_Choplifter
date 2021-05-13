@@ -1,5 +1,6 @@
 package de.thdeg.helfrich.choplifter.graphics.staticobjects;
 
+import de.thdeg.helfrich.choplifter.graphics.basics.CollidableGameObject;
 import de.thdeg.helfrich.choplifter.graphics.basics.Position;
 import de.thdeg.helfrich.choplifter.gameview.GameView;
 
@@ -56,7 +57,7 @@ public class Barracks extends Building {
                     " SSSSSSLLLLLLLLLLLLLLLLLLLLLqqqLLLSSSSSSSSSSSSSSS \n" +
                     " SSSSSSSSLLYLLLLLLLqLLLLLLLRqYqRLLLLLLLLLSSSSSSSS \n" +
                     " SSSSSSSSSLLLLLLLLqqqLLLYLLRqYqRLLLLYLLLLSSSSSSSS \n" +
-                    " SSSSYSSSSSSSLLLLLRqYqRLLLLLLqKqLLLLLSSSSSSSSSSSSS \n" +
+                    " SSSSYSSSSSSSLLLLLRqYqRLLLLLLqKqLLLLLSSSSSSSSSSSS \n" +
                     " SSSSSSSSSLLLLLLLRqYqRLLLLLLKKKLLLLSSSSSSSSSSYSSS \n" +
                     " SSSSSSSLLLLLYLLRqYYYqRLLLLKKKKKLLLLLLLSSSSSSSSSS \n" +
                     " SSSSSSSLLLLLLLLRqYYYqRLLLLLLLLLLLLLLLLLLLSSSSSSS \n" +
@@ -76,12 +77,12 @@ public class Barracks extends Building {
                     "      KKWWWWWSSSSYSSSLLLLLLLLSSSSSSSSWWWWW        \n" +
                     "      WWWWWSSSSSSSSSSLLLLLLLLSSSSSSSSSSWWWWW      \n" +
                     "    WWWWWSSSSSSSSSSSSLLLLLLLLSSSSSSSSSSSSWWWWW    \n" +
-                    "  WWWWWSSSSSSSSSSSSSSLLLLLLLSSSSSSSSSSSSSSWWWWW  \n" +
+                    "  WWWWWSSSSSSSSSSSSSSLLLLLLLSSSSSSSSSSSSSSWWWWW   \n" +
                     " WWWWSSSSSSSLLLLSSSSSLLLLLLLLSSSSSSSSSSSSSSSSWWWW \n" +
                     " WWSSSSSSSSSLLLLLLSSSLLLLLLLLSSSSSSLLLLSSSSSSSSWW \n" +
                     " SSSSSSSSSSSLLLLLLLLLLLLLLLLLLLLLLLLLLLSSSSSSSSSS \n" +
                     " SSSSSSLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLSSSSSSSSSSSS \n" +
-                    " SSSSSSLLLLLLLLLLLLLLLLLLLLLLLLLLLLSSSSSSSSSSSSSSS \n" +
+                    " SSSSSSLLLLLLLLLLLLLLLLLLLLLLLLLLLLSSSSSSSSSSSSSS \n" +
                     " SSSSSSSSLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLSSSSSSSS \n" +
                     " SSSSSSSSSLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLSSSSSSSS \n" +
                     " SSSSSSSSSSSSLLLLLLLLLLLLLLLLLLLLLLLSSSSSSSSSSSSS \n" +
@@ -109,12 +110,13 @@ public class Barracks extends Building {
         super.gameView = gameView;
         super.position = new Position(200, 410);
         super.size = 1.5;
-        super.width = (int) (40 * size);
+        super.width = (int) (48 * size);
         super.height = (int) (25 * size);
         super.rotation = 0;
         this.closed = true;
         this.destroyed = true;
         this.hostagesInside = 16;
+        super.hitBox = new Rectangle((int) position.x, (int) position.y, width, height-13);
         gameView.setColorForBlockImage('W', Color.WHITE);
         gameView.setColorForBlockImage('L', Color.BLACK);
         gameView.setColorForBlockImage('R', Color.RED);
@@ -122,6 +124,16 @@ public class Barracks extends Building {
         gameView.setColorForBlockImage('q', new Color(179, 53, 25));
         gameView.setColorForBlockImage('K', new Color(94, 55, 40));
         gameView.setColorForBlockImage('S', new Color(104, 58, 183));
+    }
+
+    @Override
+    protected void updateHitBoxPosition() {
+        hitBox = new Rectangle((int) position.x+2, (int) position.y+14, hitBox.width, hitBox.height);
+    }
+
+    @Override
+    protected void reactToCollision(CollidableGameObject otherObject) {
+
     }
 
     /**
@@ -134,6 +146,7 @@ public class Barracks extends Building {
         } else {
            onFire();
         }
+        gameView.addRectangleToCanvas(hitBox.x, hitBox.y, hitBox.width, hitBox.height, 1, false, Color.RED);
     }
 
     private void onFire(){

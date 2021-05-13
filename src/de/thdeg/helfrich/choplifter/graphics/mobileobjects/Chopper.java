@@ -1,5 +1,6 @@
 package de.thdeg.helfrich.choplifter.graphics.mobileobjects;
 
+import de.thdeg.helfrich.choplifter.graphics.basics.CollidableGameObject;
 import de.thdeg.helfrich.choplifter.graphics.basics.Position;
 import de.thdeg.helfrich.choplifter.gameview.GameView;
 import de.thdeg.helfrich.choplifter.graphics.basics.GameObject;
@@ -9,7 +10,7 @@ import java.awt.*;
 /**
  * Represents a chopper in the game.
  */
-public class Chopper extends GameObject {
+public class Chopper extends CollidableGameObject {
 
     /**
      * BlockImage chopper in three different perspectives*
@@ -86,6 +87,7 @@ public class Chopper extends GameObject {
         super.height = (int) (14 * size);
         super.rotation = 0;
         super.speedInPixel = 2;
+        super.hitBox = new Rectangle((int) position.x, (int) position.y,width-20, height-24);
         this.diagonalMovement = false;
         this.moveLeft = false;
         this.moveRight = false;
@@ -99,6 +101,23 @@ public class Chopper extends GameObject {
         this.showGraphics = true;
         gameView.setColorForBlockImage('W', Color.WHITE);
         gameView.setColorForBlockImage('L', Color.BLACK);
+    }
+
+    @Override
+    protected void updateHitBoxPosition() {
+        if(moveLeft == true){
+            hitBox = new Rectangle((int) position.x, (int) position.y+13,hitBox.width, hitBox.height);}
+        if(moveRight == true){
+            hitBox = new Rectangle((int) position.x+20, (int) position.y+13,hitBox.width, hitBox.height);
+        }
+        if(moveVertically== true){
+            hitBox = new Rectangle((int) position.x+10, (int) position.y+13,hitBox.width, hitBox.height);
+        }
+    }
+
+    @Override
+    protected void reactToCollision(CollidableGameObject otherObject) {
+
     }
 
     /**
@@ -116,6 +135,7 @@ public class Chopper extends GameObject {
             if (moveVertically == true) {
                 gameView.addBlockImageToCanvas(CHOPPER_FRONT, position.x, position.y, size, 0);
             }
+            gameView.addRectangleToCanvas(hitBox.x, hitBox.y, hitBox.width, hitBox.height, 1, false, Color.RED);
             /*if (shooting == true) {
                 gameView.addTextToCanvas("You are shooting", position.x, position.y, 20, Color.RED, rotation);
                 shooting = false;

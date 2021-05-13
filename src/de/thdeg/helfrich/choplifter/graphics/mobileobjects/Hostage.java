@@ -1,14 +1,17 @@
 package de.thdeg.helfrich.choplifter.graphics.mobileobjects;
 
+import de.thdeg.helfrich.choplifter.graphics.basics.CollidableGameObject;
 import de.thdeg.helfrich.choplifter.graphics.basics.MovingGameObject;
 import de.thdeg.helfrich.choplifter.graphics.basics.Position;
 import de.thdeg.helfrich.choplifter.gameview.GameView;
 import de.thdeg.helfrich.choplifter.graphics.basics.GameObject;
 
+import java.awt.*;
+
 /**
  * Represents a hostage in the game.
  */
-public class Hostage extends GameObject implements MovingGameObject {
+public class Hostage extends CollidableGameObject implements MovingGameObject {
 
     private final static String HOSTAGE_RIGHT =
                     "                         LLL          \n" +
@@ -164,12 +167,28 @@ public class Hostage extends GameObject implements MovingGameObject {
         super.height = (int) (42 * size);
         super.rotation = 0;
         super.speedInPixel = 0.3;
+        super.hitBox = new Rectangle((int) position.x, (int) position.y, width-15, height-15);
         this.flyFromLeftToRight = true;
         this.waiting = false;
         this.touchedByHelicopter = false;
         this.inRangeOfHelicopter = false;
         this.alive = true;
         this.passenger = false;
+    }
+
+    @Override
+    protected void updateHitBoxPosition() {
+        if(flyFromLeftToRight== true) {
+            hitBox = new Rectangle((int) position.x + 10, (int) position.y+7, hitBox.width, hitBox.height);
+        }
+        if(flyFromLeftToRight== false) {
+            hitBox = new Rectangle((int) position.x+5, (int) position.y+7, hitBox.width, hitBox.height);
+        }
+    }
+
+    @Override
+    protected void reactToCollision(CollidableGameObject otherObject) {
+
     }
 
     /**
@@ -185,6 +204,7 @@ public class Hostage extends GameObject implements MovingGameObject {
         if (waiting == true) {
             gameView.addBlockImageToCanvas(HOSTAGE_WAITING, position.x, position.y, size, rotation);
         }
+        gameView.addRectangleToCanvas(hitBox.x, hitBox.y, hitBox.width, hitBox.height, 1, false, Color.RED);
     }
 
     /**

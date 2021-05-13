@@ -1,5 +1,6 @@
 package de.thdeg.helfrich.choplifter.graphics.staticobjects;
 
+import de.thdeg.helfrich.choplifter.graphics.basics.CollidableGameObject;
 import de.thdeg.helfrich.choplifter.graphics.basics.Position;
 import de.thdeg.helfrich.choplifter.gameview.GameView;
 
@@ -112,6 +113,16 @@ public class Base extends Building {
         gameView.setColorForBlockImage('I', new Color(53, 119, 196));
     }
 
+    @Override
+    protected void updateHitBoxPosition() {
+
+    }
+
+    @Override
+    protected void reactToCollision(CollidableGameObject otherObject) {
+
+    }
+
     private void flickerFlag() {
         boolean showBlock1 = false;
         boolean showBlock2 = false;
@@ -145,8 +156,10 @@ public class Base extends Building {
 
     @Override
     public void addToCanvas() {
+        //graphics of the landing field
         gameView.addPolygonToCanvas(new double[]{position.x-100,position.x-150,position.x+width+55, position.x+width+5}, new double[]{GameView.HEIGHT-100, GameView.HEIGHT-100+height/5d, GameView.HEIGHT-100+height/5d, GameView.HEIGHT-100}, 0, true, new Color(122, 181, 181));
         gameView.addLineToCanvas(position.x+width+55, GameView.HEIGHT-100+height/5d-1,position.x+width+5, GameView.HEIGHT-100, 1.5, Color.WHITE);
+        //changing graphic os the barracks
         flickerFlag();
     }
 

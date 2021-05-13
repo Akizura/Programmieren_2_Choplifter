@@ -1,5 +1,6 @@
 package de.thdeg.helfrich.choplifter.graphics.mobileobjects;
 
+import de.thdeg.helfrich.choplifter.graphics.basics.CollidableGameObject;
 import de.thdeg.helfrich.choplifter.graphics.basics.MovingGameObject;
 import de.thdeg.helfrich.choplifter.graphics.basics.Position;
 import de.thdeg.helfrich.choplifter.gameview.GameView;
@@ -68,6 +69,7 @@ public class Drone extends Enemy implements MovingGameObject {
         this.destroyed = false;
         this.exploded = false;
         super.inRangeOfChopper = false;
+        super.hitBox = new Rectangle((int) position.x, (int) position.y, width-10, height-5);
         this.objectID = "Drone" + position.x + position.y;
         gameView.setColorForBlockImage('R', new Color(187, 35, 75));
         gameView.setColorForBlockImage('L', Color.BLACK);
@@ -76,6 +78,15 @@ public class Drone extends Enemy implements MovingGameObject {
         gameView.setColorForBlockImage('n', new Color(84, 22, 7));
     }
 
+    @Override
+    protected void updateHitBoxPosition() {
+        hitBox = new Rectangle((int) position.x+5, (int) position.y+5, hitBox.width, hitBox.height);
+    }
+
+    @Override
+    protected void reactToCollision(CollidableGameObject otherObject) {
+
+    }
 
 
     /**
@@ -84,6 +95,7 @@ public class Drone extends Enemy implements MovingGameObject {
     @Override
     public void addToCanvas() {
         gameView.addBlockImageToCanvas(DRONE, position.x, position.y, size, rotation);
+        gameView.addRectangleToCanvas(hitBox.x, hitBox.y, hitBox.width, hitBox.height, 1, false, Color.RED);
     }
 
     /**

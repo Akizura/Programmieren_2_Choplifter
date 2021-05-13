@@ -23,6 +23,8 @@ import java.util.LinkedList;
     private final Ground ground;
     private final ScoreBoard scoreBoard;
     private final FixedStar fixedStar;
+    private final Mountain mountain;
+    private final Skyline skyline;
 
     private LinkedList<ChopperShot> chopperShots;
     private LinkedList<Jet> jets;
@@ -50,6 +52,8 @@ import java.util.LinkedList;
         this.ground = new Ground(gameView);
         this.scoreBoard = new ScoreBoard(gameView);
         this.fixedStar = new FixedStar(gameView);
+        this.mountain = new Mountain(gameView);
+        this.skyline = new Skyline(gameView);
 
         this.chopperShots = new LinkedList<>();
         this.jets = new LinkedList<>();
@@ -75,6 +79,8 @@ import java.util.LinkedList;
         gameObjects.addAll(movingStars);
         gameObjects.add(scoreBoard);
         gameObjects.add(ground);
+        gameObjects.add(skyline);
+        gameObjects.add(mountain);
         gameObjects.add(border);
         gameObjects.add(base);
         gameObjects.add(barracks);
