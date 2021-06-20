@@ -1,11 +1,14 @@
 package de.thdeg.helfrich.choplifter.game.managers;
 
 import de.thdeg.helfrich.choplifter.gameview.GameView;
+import de.thdeg.helfrich.choplifter.graphics.basics.CollidableGameObject;
 import de.thdeg.helfrich.choplifter.graphics.basics.GameObject;
 import de.thdeg.helfrich.choplifter.graphics.mobileobjects.*;
 import de.thdeg.helfrich.choplifter.graphics.staticobjects.*;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * This class manages the game objects.
@@ -25,6 +28,8 @@ import java.util.LinkedList;
     private final FixedStar fixedStar;
     private final Mountain mountain;
     private final Skyline skyline;
+    /*private final RandomBall randomBall;
+    private final FollowerBall followerBall;*/
 
     private LinkedList<ChopperShot> chopperShots;
     private LinkedList<Jet> jets;
@@ -44,9 +49,9 @@ import java.util.LinkedList;
     public GameObjectManager(GameView gameView) {
         this.gameView = gameView;
         this.barracks = new Barracks(gameView);
+        this.base = new Base(gameView);
         this.hostage = new Hostage(gameView);
         this.chopper = new Chopper(gameView);
-        this.base = new Base(gameView);
         this.background = new Background(gameView);
         this.border = new Border(gameView);
         this.ground = new Ground(gameView);
@@ -54,6 +59,8 @@ import java.util.LinkedList;
         this.fixedStar = new FixedStar(gameView);
         this.mountain = new Mountain(gameView);
         this.skyline = new Skyline(gameView);
+        /*this.randomBall = new RandomBall(gameView);
+        this.followerBall = new FollowerBall(gameView, randomBall);*/
 
         this.chopperShots = new LinkedList<>();
         this.jets = new LinkedList<>();
@@ -85,6 +92,8 @@ import java.util.LinkedList;
         gameObjects.add(base);
         gameObjects.add(barracks);
         gameObjects.add(chopper);
+        /*gameObjects.add(randomBall);
+        gameObjects.add(followerBall);*/
 
         gameObjects.addAll(hostages);
         gameObjects.addAll(chopperShots);
@@ -200,7 +209,19 @@ import java.util.LinkedList;
         return movingStars;
     }
 
+    /**
+     * Getter method for the barracks.
+     * @return barracks
+     */
     public Barracks getBarracks() {
         return barracks;
+    }
+
+    /**
+     * Getter method for the base
+     * @return base
+     */
+    public Base getBase() {
+        return base;
     }
 }

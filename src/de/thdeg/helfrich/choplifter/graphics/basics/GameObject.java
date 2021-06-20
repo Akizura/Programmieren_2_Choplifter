@@ -4,10 +4,12 @@ import de.thdeg.helfrich.choplifter.game.managers.GameObjectManager;
 import de.thdeg.helfrich.choplifter.game.managers.GamePlayManager;
 import de.thdeg.helfrich.choplifter.gameview.GameView;
 
+import java.util.Objects;
+
 /**
  * Represents GameObjects in the game.
  */
-public abstract class GameObject {
+public abstract class GameObject implements Cloneable{
 
     protected GameView gameView;
     protected GamePlayManager gamePlayManager;
@@ -99,10 +101,36 @@ public abstract class GameObject {
     public void countGameObjects() {
 
     }
+    @Override
+    public GameObject clone() {
+        GameObject gameObject = null;
+        try {
+            gameObject = (GameObject) super.clone();
+            gameObject.position = position.clone();
+        } catch (CloneNotSupportedException ignored) {
+        }
+        return gameObject;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GameObject that = (GameObject) o;
+        return Double.compare(that.speedInPixel, speedInPixel) == 0
+                && Double.compare(that.rotation, rotation) == 0
+                && Double.compare(that.size, size) == 0 && width == that.width
+                && height == that.height && position.equals(that.position);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(position, speedInPixel, rotation, size, width, height);
+    }
 
     @Override
     public String toString() {
-        return "GameObject: (" + "position=" + position + ")";
+        return getClass().getSimpleName() + ": " + position;
     }
 }
 

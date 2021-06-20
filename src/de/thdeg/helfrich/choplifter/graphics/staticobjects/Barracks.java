@@ -3,6 +3,7 @@ package de.thdeg.helfrich.choplifter.graphics.staticobjects;
 import de.thdeg.helfrich.choplifter.graphics.basics.CollidableGameObject;
 import de.thdeg.helfrich.choplifter.graphics.basics.Position;
 import de.thdeg.helfrich.choplifter.gameview.GameView;
+import de.thdeg.helfrich.choplifter.graphics.mobileobjects.Jet;
 
 import java.awt.*;
 
@@ -10,6 +11,8 @@ import java.awt.*;
  * Represents a Barracks in the game.
  */
 public class Barracks extends Building {
+
+    public enum Status {STANDARD, DESTROYED}
 
     private final static String BARRACKS_CLOSED =
                     "                    WWWWWWWWWW                    \n" +
@@ -99,6 +102,7 @@ public class Barracks extends Building {
     private int takenDamage;
     private boolean destroyed;
     private int hostagesInside;
+    private Status status;
 
     /**
      * Creates a new Barracks.
@@ -117,6 +121,7 @@ public class Barracks extends Building {
         this.destroyed = true;
         this.hostagesInside = 16;
         super.hitBox = new Rectangle((int) position.x, (int) position.y, width, height-13);
+        this.status = Status.STANDARD;
         gameView.setColorForBlockImage('W', Color.WHITE);
         gameView.setColorForBlockImage('L', Color.BLACK);
         gameView.setColorForBlockImage('R', Color.RED);
@@ -175,6 +180,10 @@ public class Barracks extends Building {
         return destroyed;
     }
 
+    /**
+     * Getter method for the status destroyed
+     * @return destroyed
+     */
     public boolean getDestroyed(){return destroyed;}
 
     private void takeDamage() {
@@ -184,15 +193,5 @@ public class Barracks extends Building {
     @Override
     public void updateStatus(){
 
-    }
-
-    /**
-     * Shows a summary of the core information of Barracks.
-     *
-     * @return Returns the name of the class and the current position.
-     */
-    @Override
-    public String toString() {
-        return "Barracks: (" + "position=" + position + ")";
     }
 }

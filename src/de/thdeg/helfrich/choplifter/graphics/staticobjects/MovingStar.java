@@ -76,7 +76,7 @@ public class MovingStar extends Background {
     private String objectID;
 
     /**
-     * Creates a new star.
+     * Creates a new movingStar.
      *
      * @param gameView Window to show the stars on.
      */

@@ -6,7 +6,9 @@ import de.thdeg.helfrich.choplifter.graphics.basics.Position;
 import de.thdeg.helfrich.choplifter.gameview.GameView;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -37,7 +39,7 @@ public class Tank extends Shooter implements MovingGameObject {
                     "   KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK   ";
 
     private final static String TANK_LEFT =
-                    "       KnKWWKnnnnKKKKKnKKKKKnn               \n" +
+            "       KnKWWKnnnnKKKKKnKKKKKnn               \n" +
                     "       nnnnnnnKKnnnnnnnnnKnnNK               \n" +
                     "       KKKnKKKKKKKnKKKKnnnnnn                \n" +
                     "                    nnKnnKKnnn               \n" +
@@ -68,25 +70,28 @@ public class Tank extends Shooter implements MovingGameObject {
     /**
      * Creates a new Tank.
      *
-     * @param gameView GameView to show the Tank on.
+     * @param gameView             gameView GameView to show the Tank on.
+     * @param objectsToCollideWith Game objects this game object can collide with.
      */
-    public Tank(GameView gameView) {
-        super(gameView);
+    public Tank(GameView gameView, ArrayList<CollidableGameObject> objectsToCollideWith) {
+        super(gameView, objectsToCollideWith);
         LinkedList<Tank> tanks = new LinkedList<>();
         super.gameView = gameView;
         this.random = new Random();
         /*super.position = new Position(30, 470);*/
-        super.position = new Position (random.nextInt(gameView.WIDTH-width), gameView.HEIGHT-random.nextInt(110));
         super.size = 1.5;
         super.width = (int) (45 * size);
         super.height = (int) (20 * size);
+        super.position = new Position(random.nextInt(GameView.WIDTH - width), GameView.HEIGHT - height - random.nextInt(70));
+        System.out.println(height);
+        System.out.println(GameView.HEIGHT);
         super.rotation = 0;
         super.speedInPixel = 0.5;
         this.flyFromLeftToRight = true;
         this.destroyed = false;
         super.shotsPerSecond = 2;
         super.inRangeOfChopper = false;
-        super.hitBox = new Rectangle((int) position.x, (int) position.y, width-20, height-10);
+        super.hitBox = new Rectangle((int) position.x, (int) position.y, width - 20, height - 10);
         this.objectID = "Tank" + position.x + position.y;
         gameView.setColorForBlockImage('K', new Color(94, 55, 40));
         gameView.setColorForBlockImage('n', new Color(84, 22, 7));
@@ -101,7 +106,7 @@ public class Tank extends Shooter implements MovingGameObject {
 
     @Override
     protected void updateHitBoxPosition() {
-        hitBox = new Rectangle((int) position.x+10, (int) position.y+10, hitBox.width, hitBox.height);
+        hitBox = new Rectangle((int) position.x + 10, (int) position.y + 10, hitBox.width, hitBox.height);
     }
 
     @Override
@@ -152,17 +157,26 @@ public class Tank extends Shooter implements MovingGameObject {
     }
 
     @Override
-    public void updateStatus(){
+    public void updateStatus() {
         shoot();
     }
 
-    /**
-     * Shows a summary of the core information of Tank.
-     *
-     * @return Returns the name of the class and the current position.
-     */
     @Override
-    public String toString() {
-        return "Tank: (" + "position=" + position + ")";
+    public Tank clone() {
+        return (Tank) super.clone();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Tank tank = (Tank) o;
+        return Double.compare(tank.shotsPerSecond, shotsPerSecond) == 0 && flyFromLeftToRight == tank.flyFromLeftToRight;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), shotsPerSecond, flyFromLeftToRight);
     }
 }

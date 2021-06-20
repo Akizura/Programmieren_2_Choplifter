@@ -56,6 +56,7 @@ public class ScoreBoard extends Background {
     private int deadHostages;
     private int passengersInHelicopter;
     private int hostagesRescued;
+    private int numberLength;
 
     /**
      * Creates a new scoreboard.
@@ -64,10 +65,12 @@ public class ScoreBoard extends Background {
      */
     public ScoreBoard(GameView gameView) {
         super(gameView);
-        this.deadHostages = 0;
+        this.deadHostages = 3;
         this.passengersInHelicopter = 0;
-        this.hostagesRescued = 0;
+        this.hostagesRescued = 10;
         this.size = 31;
+        this.numberLength = 2;
+        this.rotation = 0;
     }
 
     @Override
@@ -81,23 +84,23 @@ public class ScoreBoard extends Background {
         gameView.addBlockImageToCanvas(SPADE, 210, 30, 1.7, 0);
         gameView.addBlockImageToCanvas(RUE, 450, 30, 1.7, 0);
         /*gameView.addPolygonToCanvas(new double[]{460, 450, 460, 470}, new double[]{30, 40, 50, 40}, 0, true, Color.WHITE);*/
-        gameView.addBlockImageToCanvas(HEART, 685, 30, 1.75, 0);
+        gameView.addBlockImageToCanvas(HEART, 690, 30, 1.75, 0);
 
         //Rectangles
         gameView.addRectangleToCanvas(50, 30, 150, 20, 1, true, new Color(118, 66, 43));
         gameView.addRectangleToCanvas(290, 30, 150, 20, 1, true, new Color(118, 66, 43));
-        gameView.addRectangleToCanvas(525, 30, 150, 20, 1, true, new Color(118, 66, 43));
-        gameView.addRectangleToCanvas(760, 30, 150, 20, 1, true, new Color(118, 66, 43));
+        gameView.addRectangleToCanvas(530, 30, 150, 20, 1, true, new Color(118, 66, 43));
+        gameView.addRectangleToCanvas(770, 30, 150, 20, 1, true, new Color(118, 66, 43));
 
         //Framing lines
-        gameView.addLineToCanvas(50.0, 20.0, 910.0, 20.0, 3, Color.YELLOW);
-        gameView.addLineToCanvas(50.0, 63.0, 910.0, 63.0, 3, Color.YELLOW);
+        gameView.addLineToCanvas(50.0, 20.0, 920.0, 20.0, 3, Color.YELLOW);
+        gameView.addLineToCanvas(50.0, 63.0, 920.0, 63.0, 3, Color.YELLOW);
         gameView.addPolyLineToCanvas(new double[]{50.0, 35.0, 50.0}, new double[]{20.0, 41.5, 63.0}, 3, Color.YELLOW);
-        gameView.addPolyLineToCanvas(new double[]{910.0, 925.0, 910.0}, new double[]{20.0, 41.5, 63.0}, 3, Color.YELLOW);
+        gameView.addPolyLineToCanvas(new double[]{920.0, 935.0, 920.0}, new double[]{20.0, 41.5, 63.0}, 3, Color.YELLOW);
 
         //changing information of the scoreboard
-        gameView.addTextToCanvas(String.valueOf(deadHostages), 230, 25, size, Color.WHITE, rotation);
-        gameView.addTextToCanvas(String.valueOf(passengersInHelicopter), 470, 25, size, Color.WHITE, rotation);
-        gameView.addTextToCanvas(String.valueOf(hostagesRescued), 705, 25, size, Color.WHITE, rotation);
+        gameView.addTextToCanvas(String.format("%0"+numberLength+"d",deadHostages)/*.replace(' ', '0')*/, 230, 25, size, Color.WHITE, rotation);
+        gameView.addTextToCanvas(String.format("%02d", passengersInHelicopter), 470, 25, size, Color.WHITE, rotation);
+        gameView.addTextToCanvas(String.format("%02d", hostagesRescued), 710, 25, size, Color.WHITE, rotation);
     }
 }

@@ -10,6 +10,7 @@ import de.thdeg.helfrich.choplifter.graphics.mobileobjects.Chopper;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 /**
  * A shot of the chopper
@@ -21,11 +22,14 @@ public class ChopperShot extends Shot implements MovingGameObject {
     private String objectID;
 
     /**
-     * Creates a shot of the chopper.
+     * Creates a ChopperShot.
      * @param gameView Window to show the chopperShot on.
+     * @param chopper Reference to the playerfigure, the chopper
+     * @param gameObjectManager The GameObjectManager manages the game
+     * @param objectsToCollideWith ame objects this game object can collide with.
      */
-    public ChopperShot(GameView gameView, Chopper chopper, GameObjectManager gameObjectManager){
-        super(gameView);
+    public ChopperShot(GameView gameView, Chopper chopper, GameObjectManager gameObjectManager, ArrayList<CollidableGameObject> objectsToCollideWith){
+        super(gameView,objectsToCollideWith);
         this.chopper = chopper;
         this.gameObjectManager = gameObjectManager;
         this.position = new Position(GameView.WIDTH/2d, GameView.HEIGHT);
@@ -106,6 +110,6 @@ public class ChopperShot extends Shot implements MovingGameObject {
 
     @Override
     protected void reactToCollision(CollidableGameObject otherObject) {
-
+        gamePlayManager.destroy(this);
     }
 }

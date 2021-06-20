@@ -1,64 +1,18 @@
 package de.thdeg.helfrich.choplifter.graphics.mobileobjects;
 
 import de.thdeg.helfrich.choplifter.graphics.basics.CollidableGameObject;
+import de.thdeg.helfrich.choplifter.graphics.basics.CollidingGameObject;
 import de.thdeg.helfrich.choplifter.graphics.basics.Position;
 import de.thdeg.helfrich.choplifter.gameview.GameView;
 import de.thdeg.helfrich.choplifter.graphics.basics.GameObject;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Represents a chopper in the game.
  */
 public class Chopper extends CollidableGameObject {
-
-    /**
-     * BlockImage chopper in three different perspectives*
-     */
-    private final static String CHOPPER_RIGHT =
-                    "        W      \n" +
-                    "  WWWWWWWWWWWWW\n" +
-                    "W       W      \n" +
-                    " W       W     \n" +
-                    "  W    WWWWW   \n" +
-                    "  WWWWWWWWWWW  \n" +
-                    "  W   WWWWWLLW \n" +
-                    "  W   WWWWWLLLW\n" +
-                    "      WWWWWWWWW\n" +
-                    "       WWWWWWW \n" +
-                    "        W W    \n" +
-                    "       W   W  W\n" +
-                    "     WWWWWWWWW \n";
-
-    private final static String CHOPPER_LEFT =
-                    "      W        \n" +
-                    "WWWWWWWWWWWWW  \n" +
-                    "      W       W\n" +
-                    "     W       W \n" +
-                    "   WWWWW    W  \n" +
-                    "  WWWWWWWWWWW  \n" +
-                    " WLLWWWWW   W  \n" +
-                    "WLLLWWWWW   W  \n" +
-                    "WWWWWWWWW      \n" +
-                    " WWWWWWW       \n" +
-                    "    W W        \n" +
-                    "W  W   W       \n" +
-                    " WWWWWWWWW     \n";
-
-    private final static String CHOPPER_FRONT =
-                    "       W       \n" +
-                    " WWWWWWWWWWWWW \n" +
-                    "       W       \n" +
-                    "       W       \n" +
-                    "      WWW      \n" +
-                    "    WWWWWWW    \n" +
-                    "   WWLLLLLWW   \n" +
-                    "   WWLLLLLWW   \n" +
-                    "   WWWWWWWWW   \n" +
-                    "    WWWWWWW    \n" +
-                    "     WWWWW     \n" +
-                    "    W     W    \n" +
-                    "   W       W   \n";
 
     private int takenDamage;
     private int numberOfLives;
@@ -125,30 +79,17 @@ public class Chopper extends CollidableGameObject {
      */
     @Override
     public void addToCanvas() {
-        if (showGraphics == true) {
-            if (moveLeft == true) {
-                gameView.addBlockImageToCanvas(CHOPPER_LEFT, position.x, position.y, size, 0);
-            }
-            if (moveRight == true) {
-                gameView.addBlockImageToCanvas(CHOPPER_RIGHT, position.x, position.y, size, 0);
-            }
-            if (moveVertically == true) {
-                gameView.addBlockImageToCanvas(CHOPPER_FRONT, position.x, position.y, size, 0);
-            }
-            gameView.addRectangleToCanvas(hitBox.x, hitBox.y, hitBox.width, hitBox.height, 1, false, Color.RED);
-            /*if (shooting == true) {
+            if (shooting == true) {
                 gameView.addTextToCanvas("You are shooting", position.x, position.y, 20, Color.RED, rotation);
                 shooting = false;
-            }
         } else {
             if (shooting == true) {
                 gameView.addTextToCanvas("O", position.x, position.y, 50, Color.RED, rotation);
                 shooting = false;
             } else {
                 gameView.addTextToCanvas("X", position.x, position.y, 50, Color.WHITE, rotation);
-            }*/
-        }
-    }
+            }
+        }}
 
     /**
      * Moves the chopper leftwards.
@@ -157,10 +98,12 @@ public class Chopper extends CollidableGameObject {
         moveLeft = true;
         moveRight = false;
         moveVertically = false;
-        if(position.x > 300){
-        position.left(speedInPixel);
-        } else {
-            gamePlayManager.chopperMovingLeft(speedInPixel);
+        if(position.y <=400) {
+            if (position.x > 300) {
+                position.left(speedInPixel);
+            } else {
+                gamePlayManager.chopperMovingLeft(speedInPixel);
+            }
         }
     }
 
@@ -171,10 +114,12 @@ public class Chopper extends CollidableGameObject {
         moveRight = true;
         moveLeft = false;
         moveVertically = false;
-        if(position.x < GameView.WIDTH - width - 300){
-            position.right(speedInPixel);
-        } else {
-            gamePlayManager.chopperMovingRight(speedInPixel);
+        if(position.y <=400) {
+            if (position.x < GameView.WIDTH - width - 300) {
+                position.right(speedInPixel);
+            } else {
+                gamePlayManager.chopperMovingRight(speedInPixel);
+            }
         }
     }
 
@@ -185,18 +130,22 @@ public class Chopper extends CollidableGameObject {
         moveVertically = true;
         moveLeft = false;
         moveRight = false;
-        position.up(speedInPixel);
+        if(position.y >= 70) {
+            position.up(speedInPixel);
+        }
     }
 
     /**
      * Moves the chopper downwards.
      */
-    public void down() {
+    /*public void down() {
         moveVertically = true;
         moveLeft = false;
         moveRight = false;
-        position.down(speedInPixel);
-    }
+        if(position.y <= 400) {
+            position.down(speedInPixel);
+        }
+    }*/
 
     /**
      * With this method the chopper is able to shoot.
@@ -209,18 +158,34 @@ public class Chopper extends CollidableGameObject {
         }
     }
 
+    /**
+     * Getter method for the height of the chopper
+     * @return height
+     */
     public double getHeight(){
         return height;
     }
 
+    /**
+     * Getter method for the direction in which the chopper is moving
+     * @return moveLeft
+     */
     public boolean getMoveLeft(){
         return moveLeft;
     }
 
+    /**
+     * Getter method for the direction in which the chopper is moving
+     * @return moveRight
+     */
     public boolean getMoveRight(){
         return moveRight;
     }
 
+    /**
+     * Getter method for the direction in which the chopper is moving
+     * @return moveVertically
+     */
     public boolean getMoveVertically(){
         return moveVertically;
     }
@@ -228,11 +193,6 @@ public class Chopper extends CollidableGameObject {
     @Override
     public void updateStatus(){
 
-    }
-
-    @Override
-    public String toString() {
-        return "Chopper: (" + "position =" + position + ")";
     }
 
 }

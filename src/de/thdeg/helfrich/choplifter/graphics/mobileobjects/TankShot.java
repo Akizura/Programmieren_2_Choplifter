@@ -5,18 +5,21 @@ import de.thdeg.helfrich.choplifter.graphics.basics.CollidableGameObject;
 import de.thdeg.helfrich.choplifter.graphics.basics.MovingGameObject;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * A shot of a tank.
  */
 public class TankShot extends Shot implements MovingGameObject {
 
+
     /**
      * Creates a shot of a tank.
      * @param gameView Window to show the tankShot on.
+     * @param objectsToCollideWith Game objects this game object can collide with.
      */
-    public TankShot(GameView gameView){
-        super(gameView);
+    public TankShot(GameView gameView, ArrayList<CollidableGameObject> objectsToCollideWith){
+        super(gameView, objectsToCollideWith);
         this.speedInPixel = 1;
         this.size = 1;
         this.rotation = 0;
@@ -32,7 +35,7 @@ public class TankShot extends Shot implements MovingGameObject {
 
     @Override
     protected void reactToCollision(CollidableGameObject otherObject) {
-
+        gamePlayManager.destroy(this);
     }
 
     @Override

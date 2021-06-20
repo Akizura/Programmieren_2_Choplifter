@@ -67,10 +67,10 @@ public class InputManager {
                         chopper.up();
                         break;
                     }
-                    if (keyCode == KeyEvent.VK_DOWN) {
+                    /*if (keyCode == KeyEvent.VK_DOWN) {
                         chopper.down();
                         break;
-                    }
+                    }*/
                     if (keyCode == KeyEvent.VK_RIGHT) {
                         chopper.right();
                         break;
@@ -97,9 +97,9 @@ public class InputManager {
             if (keyCode == KeyEvent.VK_UP) {
                 chopper.up();
             }
-            if (keyCode == KeyEvent.VK_DOWN) {
+            /*if (keyCode == KeyEvent.VK_DOWN) {
                 chopper.down();
-            }
+            }*/
             if (keyCode == KeyEvent.VK_RIGHT) {
                 chopper.right();
             }

@@ -5,6 +5,9 @@ import de.thdeg.helfrich.choplifter.graphics.basics.Position;
 
 import java.awt.*;
 
+/**
+ * Represents a mountain in the game
+ */
 public class Mountain extends Background{
 
     //This Mountain has a width of: 75, and a height of: 33 chars.
@@ -30,6 +33,10 @@ public class Mountain extends Background{
                     " xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx \n" +
                     "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n";
 
+    /**
+     * Creates a mountain
+     * @param gameView Window to show the gameobject on
+     */
     public Mountain (GameView gameView){
         super(gameView);
         super.size = 1;

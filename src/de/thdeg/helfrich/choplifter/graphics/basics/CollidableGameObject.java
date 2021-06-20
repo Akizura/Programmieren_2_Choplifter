@@ -3,6 +3,7 @@ package de.thdeg.helfrich.choplifter.graphics.basics;
 import de.thdeg.helfrich.choplifter.gameview.GameView;
 
 import java.awt.*;
+import java.util.Objects;
 
 /**
  * Represents all game objects that are able to collide with something.
@@ -33,4 +34,22 @@ public abstract class CollidableGameObject extends GameObject{
      */
     protected abstract  void reactToCollision(CollidableGameObject otherObject);
 
+    @Override
+    public CollidableGameObject clone() {
+        return (CollidableGameObject) super.clone();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        CollidableGameObject that = (CollidableGameObject) o;
+        return Objects.equals(hitBox, that.hitBox);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), hitBox);
+    }
 }

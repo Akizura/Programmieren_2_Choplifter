@@ -104,6 +104,7 @@ public class Base extends Building {
         super.height = (int) (35 * size);
         super.rotation = 0;
         this.hostagesInside = 0;
+        super.hitBox = new Rectangle((int) position.x, (int) position.y, width/10, height/6);
         gameView.setColorForBlockImage('W', Color.WHITE);
         gameView.setColorForBlockImage('L', Color.BLACK);
         gameView.setColorForBlockImage('G', Color.GRAY);
@@ -115,7 +116,7 @@ public class Base extends Building {
 
     @Override
     protected void updateHitBoxPosition() {
-
+        hitBox = new Rectangle((int) position.x+58, (int) position.y+45, hitBox.width, hitBox.height);
     }
 
     @Override
@@ -161,10 +162,6 @@ public class Base extends Building {
         gameView.addLineToCanvas(position.x+width+55, GameView.HEIGHT-100+height/5d-1,position.x+width+5, GameView.HEIGHT-100, 1.5, Color.WHITE);
         //changing graphic os the barracks
         flickerFlag();
-    }
-
-    @Override
-    public String toString() {
-        return "Base: (" + "position=" + position + ")";
+        gameView.addRectangleToCanvas(hitBox.x, hitBox.y, hitBox.width, hitBox.height, 1, false, Color.RED);
     }
 }

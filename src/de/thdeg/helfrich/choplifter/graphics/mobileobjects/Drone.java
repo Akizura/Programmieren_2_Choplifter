@@ -6,13 +6,17 @@ import de.thdeg.helfrich.choplifter.graphics.basics.Position;
 import de.thdeg.helfrich.choplifter.gameview.GameView;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.Random;
 
 /**
  * Represents a drone in the game.
  */
 public class Drone extends Enemy implements MovingGameObject {
+
+    public enum Status {FOLLOW, EXPLODE, DESTROYED}
 
     private final static String DRONE =
                     "Y                                 Y\n" +
@@ -47,14 +51,18 @@ public class Drone extends Enemy implements MovingGameObject {
     private boolean exploded;
     private String objectID;
     private Random random;
+    private Drone.Status status;
+    Position targetPosition;
+    private final Chopper followMe;
 
     /**
-     * Creates a new Drone.
-     *
+     * Creates a drone.
      * @param gameView GameView to show the Drone on.
+     * @param followMe Chopper to follow
+     * @param objectsToCollideWith Game objects this game object can collide with.
      */
-    public Drone(GameView gameView) {
-        super(gameView);
+    public Drone(GameView gameView, Chopper followMe, ArrayList<CollidableGameObject> objectsToCollideWith) {
+        super(gameView, objectsToCollideWith);
         LinkedList<Drone> drones = new LinkedList<>();
         super.gameView = gameView;
         this.random = new Random();
@@ -64,13 +72,15 @@ public class Drone extends Enemy implements MovingGameObject {
         super.width = (int) (35 * size);
         super.height = (int) (24 * size);
         super.rotation = 0;
-        super.speedInPixel = 0.25;
+        super.speedInPixel = 0.3;
         this.flyFromLeftToRight = true;
         this.destroyed = false;
         this.exploded = false;
         super.inRangeOfChopper = false;
         super.hitBox = new Rectangle((int) position.x, (int) position.y, width-10, height-5);
         this.objectID = "Drone" + position.x + position.y;
+        this.status = Status.FOLLOW;
+        this.followMe = followMe;
         gameView.setColorForBlockImage('R', new Color(187, 35, 75));
         gameView.setColorForBlockImage('L', Color.BLACK);
         gameView.setColorForBlockImage('W', Color.WHITE);
@@ -85,7 +95,6 @@ public class Drone extends Enemy implements MovingGameObject {
 
     @Override
     protected void reactToCollision(CollidableGameObject otherObject) {
-
     }
 
 
@@ -103,15 +112,26 @@ public class Drone extends Enemy implements MovingGameObject {
      */
     @Override
     public void updatePosition() {
-        if (flyFromLeftToRight == true & position.x < 960 - width) {
+        if (flyFromLeftToRight & position.x < 960 - width) {
             position.right(speedInPixel);
         } else {
             flyFromLeftToRight = false;
-            if (flyFromLeftToRight == false) {
+            if (!flyFromLeftToRight) {
                 position.left(speedInPixel);
                 if (position.x <= 0) {
                     flyFromLeftToRight = true;
                 }
+            }
+        }
+        if (status == Drone.Status.FOLLOW) {
+            targetPosition = followMe.getPosition().clone();
+        }
+
+        if (status != Drone.Status.DESTROYED) {
+            double distance = position.distance(targetPosition);
+            if (distance >= speedInPixel) {
+                position.right((targetPosition.x - position.x) / distance * speedInPixel);
+                position.down((targetPosition.y - position.y) / distance * speedInPixel);
             }
         }
     }
@@ -129,13 +149,22 @@ public class Drone extends Enemy implements MovingGameObject {
 
     }
 
-    /**
-     * Shows a summary of the core information of Drone.
-     *
-     * @return Returns the name of the class and the current position.
-     */
     @Override
-    public String toString() {
-        return "Drone: (" + "position=" + position + ")";
+    public Drone clone() {
+        return (Drone) super.clone();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Drone drone = (Drone) o;
+        return inRangeOfChopper == drone.inRangeOfChopper && flyFromLeftToRight == drone.flyFromLeftToRight;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), inRangeOfChopper, flyFromLeftToRight);
+        }
 }

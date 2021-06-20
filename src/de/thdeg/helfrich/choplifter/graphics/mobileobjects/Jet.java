@@ -6,12 +6,15 @@ import de.thdeg.helfrich.choplifter.graphics.basics.Position;
 import de.thdeg.helfrich.choplifter.gameview.GameView;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
  * Represents a jet in the game.
  */
 public class Jet extends Shooter implements MovingGameObject {
+
+    public enum Status {FOLLOW, TURN, SHOOT, DESTROYED}
 
     private final static String JET_RIGHT =
                     " LLLL                                           \n" +
@@ -108,14 +111,19 @@ public class Jet extends Shooter implements MovingGameObject {
     private boolean moveFromLeftToRight;
     private Random random;
     private final String objectID;
+    private Status status;
+    Position targetPosition;
+    private final Chopper followMe;
+
 
     /**
-     * Creates a new Jet.
-     *
+     * Creates a jet.
      * @param gameView GameView to show the Jet on.
+     * @param followMe Chopper to follow
+     * @param objectsToCollideWith Game objects this game object can collide with.
      */
-    public Jet(GameView gameView) {
-        super(gameView);
+    public Jet(GameView gameView, Chopper followMe, ArrayList<CollidableGameObject> objectsToCollideWith) {
+        super(gameView, objectsToCollideWith);
         this.random = new Random();
         /*super.position = new Position(48, 250);*/
         super.position = new Position(random.nextInt(gameView.WIDTH-width), 65+height+random.nextInt(gameView.HEIGHT-200));
@@ -130,6 +138,8 @@ public class Jet extends Shooter implements MovingGameObject {
         super.inRangeOfChopper = false;
         super.hitBox = new Rectangle((int) position.x, (int) position.y, width, height-23);
         this.objectID = "Jet" + position.x + position.y;
+        this.status = Status.FOLLOW;
+        this.followMe = followMe;
         gameView.setColorForBlockImage('d', new Color(64, 195, 255));
         gameView.setColorForBlockImage('A', new Color(74, 20, 140));
         gameView.setColorForBlockImage('a', new Color(105, 27, 145));
@@ -148,7 +158,7 @@ public class Jet extends Shooter implements MovingGameObject {
 
     @Override
     protected void reactToCollision(CollidableGameObject otherObject) {
-
+        gamePlayManager.destroy(this);
     }
 
     /**
@@ -171,7 +181,7 @@ public class Jet extends Shooter implements MovingGameObject {
      */
     @Override
     public void updatePosition() {
-        if (moveFromLeftToRight == true & position.x < 960 - width) {
+        /*if (moveFromLeftToRight == true & position.x < 960 - width) {
             position.right(speedInPixel);
         } else {
             moveFromLeftToRight = false;
@@ -180,6 +190,19 @@ public class Jet extends Shooter implements MovingGameObject {
                 if (position.x <= 0) {
                     moveFromLeftToRight = true;
                 }
+            }
+        }*/
+        if (status == Jet.Status.FOLLOW) {
+            targetPosition = followMe.getPosition().clone();
+            targetPosition.y += 50;
+            targetPosition.x += 50;
+        }
+
+        if (status != Jet.Status.DESTROYED) {
+            double distance = position.distance(targetPosition);
+            if (distance >= speedInPixel) {
+                position.right((targetPosition.x - position.x) / distance * speedInPixel);
+                position.down((targetPosition.y - position.y) / distance * speedInPixel);
             }
         }
     }
@@ -200,17 +223,11 @@ public class Jet extends Shooter implements MovingGameObject {
 
     }
 
+    /**
+     * Getter method for the movement direction of the jet
+     * @return moveFromLeftToRight
+     */
     public boolean getMoveFromLeftToRight(){
         return moveFromLeftToRight;
-    }
-
-    /**
-     * Shows a summary of the core information of Jet.
-     *
-     * @return Returns the name of the class and the current position.
-     */
-    @Override
-    public String toString() {
-        return "Jet: (" + "position=" + position + ")";
     }
 }

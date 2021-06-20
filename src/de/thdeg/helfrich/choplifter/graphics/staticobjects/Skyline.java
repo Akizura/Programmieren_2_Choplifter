@@ -5,9 +5,12 @@ import de.thdeg.helfrich.choplifter.graphics.basics.Position;
 
 import java.awt.*;
 
+/**
+ * Represents the Skyline in the background of the game
+ */
 public class Skyline extends Background{
 
-    private final static String SKYLINE ="\n" +
+    private final static String SKYLINE =
             "      h                                           \n" +
             "      hh                                          \n" +
             "      hdh                                         \n" +
@@ -63,8 +66,10 @@ public class Skyline extends Background{
             "jjjjjjjjjjjjjjjjjjjjjjjjjjjhhhHHHHHhhhjjjjjjjjjjjj\n" +
             "jjjjjjjjjjjjjjhHHHHHHHHHHHHHhhhjjjjjjjjjjjjjjjhhhH";
 
-    private final static String SKYLINE1 ="\n";
-
+    /**
+     * Creates a Skyline
+     * @param gameView Window to show the gameobject on
+     */
     public Skyline(GameView gameView){
         super(gameView);
         super.size = 2;
@@ -86,7 +91,10 @@ public class Skyline extends Background{
 
     @Override
     public void addToCanvas() {
-        gameView.addBlockImageToCanvas(SKYLINE, position.x, position.y, size, rotation);
+        for(int i=0; i<30; i++ ) {
+            gameView.addBlockImageToCanvas(SKYLINE, position.x + -i * width, position.y, size, rotation);
+        }
+        /*gameView.addBlockImageToCanvas(SKYLINE, position.x, position.y, size, rotation);
         gameView.addBlockImageToCanvas(SKYLINE, position.x+width, position.y, size, rotation);
         gameView.addBlockImageToCanvas(SKYLINE, position.x+2*width, position.y, size, rotation);
         gameView.addBlockImageToCanvas(SKYLINE, position.x+3*width, position.y, size, rotation);
@@ -94,6 +102,6 @@ public class Skyline extends Background{
         gameView.addBlockImageToCanvas(SKYLINE, position.x+5*width, position.y, size, rotation);
         gameView.addBlockImageToCanvas(SKYLINE, position.x+6*width, position.y, size, rotation);
         gameView.addBlockImageToCanvas(SKYLINE, position.x+7*width, position.y, size, rotation);
-        gameView.addBlockImageToCanvas(SKYLINE, position.x+8*width, position.y, size, rotation);
+        gameView.addBlockImageToCanvas(SKYLINE, position.x+8*width, position.y, size, rotation);*/
     }
 }

@@ -1,12 +1,11 @@
 package de.thdeg.helfrich.choplifter.graphics.mobileobjects;
 
-import de.thdeg.helfrich.choplifter.graphics.basics.CollidableGameObject;
-import de.thdeg.helfrich.choplifter.graphics.basics.MovingGameObject;
-import de.thdeg.helfrich.choplifter.graphics.basics.Position;
+import de.thdeg.helfrich.choplifter.graphics.basics.*;
 import de.thdeg.helfrich.choplifter.gameview.GameView;
-import de.thdeg.helfrich.choplifter.graphics.basics.GameObject;
+import de.thdeg.helfrich.choplifter.graphics.staticobjects.Base;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Represents a hostage in the game.
@@ -152,6 +151,7 @@ public class Hostage extends CollidableGameObject implements MovingGameObject {
     private boolean inRangeOfHelicopter;
     private boolean flyFromLeftToRight;
     private boolean waiting;
+    private Base base;
 
     /**
      * Creates a new Hostage
@@ -168,6 +168,7 @@ public class Hostage extends CollidableGameObject implements MovingGameObject {
         super.rotation = 0;
         super.speedInPixel = 0.3;
         super.hitBox = new Rectangle((int) position.x, (int) position.y, width-15, height-15);
+        /*this.base = (Base) objectsToCollideWith.get(0);*/
         this.flyFromLeftToRight = true;
         this.waiting = false;
         this.touchedByHelicopter = false;
@@ -188,7 +189,9 @@ public class Hostage extends CollidableGameObject implements MovingGameObject {
 
     @Override
     protected void reactToCollision(CollidableGameObject otherObject) {
-
+        /*if(collidesWith(base)){
+            gamePlayManager.destroy(this);
+        }*/
     }
 
     /**
@@ -240,16 +243,6 @@ public class Hostage extends CollidableGameObject implements MovingGameObject {
     @Override
     public void updateStatus(){
 
-    }
-
-    /**
-     * Shows a summary of the core information of Hostage.
-     *
-     * @return Returns the name of the class and the current position.
-     */
-    @Override
-    public String toString() {
-        return "Hostage: (" + "position=" + position + ")";
     }
 
 }

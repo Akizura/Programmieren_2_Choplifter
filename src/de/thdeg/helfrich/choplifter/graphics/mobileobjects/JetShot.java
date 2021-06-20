@@ -5,6 +5,7 @@ import de.thdeg.helfrich.choplifter.graphics.basics.CollidableGameObject;
 import de.thdeg.helfrich.choplifter.graphics.basics.MovingGameObject;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * A shot of the jet.
@@ -14,11 +15,12 @@ public class JetShot extends Shot implements MovingGameObject {
     Jet jet;
 
     /**
-     * Creates the shots of the jets.
+     * Creates a jetShot.
      * @param gameView Window to show the jetShots on.
+     * @param objectsToCollideWith Game objects this game object can collide with.
      */
-    public JetShot(GameView gameView){
-        super(gameView);
+    public JetShot(GameView gameView, ArrayList<CollidableGameObject> objectsToCollideWith){
+        super(gameView, objectsToCollideWith);
         this.speedInPixel = 1;
         this.size = 1;
         this.rotation = 0;
@@ -34,7 +36,7 @@ public class JetShot extends Shot implements MovingGameObject {
 
     @Override
     protected void reactToCollision(CollidableGameObject otherObject) {
-
+        gamePlayManager.destroy(this);
     }
 
     @Override

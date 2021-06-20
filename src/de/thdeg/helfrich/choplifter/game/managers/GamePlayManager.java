@@ -1,10 +1,15 @@
 package de.thdeg.helfrich.choplifter.game.managers;
 
+import de.thdeg.helfrich.choplifter.game.utilities.Level;
 import de.thdeg.helfrich.choplifter.gameview.GameView;
+import de.thdeg.helfrich.choplifter.graphics.basics.CollidableGameObject;
+import de.thdeg.helfrich.choplifter.graphics.basics.CollidingGameObject;
 import de.thdeg.helfrich.choplifter.graphics.basics.Position;
 import de.thdeg.helfrich.choplifter.graphics.mobileobjects.*;
 import de.thdeg.helfrich.choplifter.graphics.staticobjects.MovingStar;
+import de.thdeg.helfrich.choplifter.game.utilities.Player;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -18,6 +23,7 @@ public class GamePlayManager {
     private boolean tankListHasBeenDeleted;
     private boolean droneListHasBeenDeleted;
     private boolean movingStarListHasBeenDeleted;
+    private Player player;
 
     /**
      * Creates a new GamePlayManager.
@@ -29,6 +35,10 @@ public class GamePlayManager {
         this.gameView = gameView;
         this.gameObjectManager = gameObjectManager;
         gameObjectManager.getChopper().setGamePlayManager(this);
+        this.player = new Player();
+        this.player.level = new Level("First Sortie", 10);
+        player.lives = Player.MAXIMUM_NUMBER_OF_LIVES;
+        int number = gameView.playSound("Wobbel1.wav", true);
     }
 
     /**
@@ -56,11 +66,22 @@ public class GamePlayManager {
         spawnAndDestroyDrones();
         spawnAndDestroyStars();
         spawnHostages();
+        /*chopperCollision();*/
     }
 
 
+    /*private void chopperCollision(){
+        gameObjectManager.getChopper();
+        ArrayList<CollidableGameObject> collidableGameObjects = new ArrayList<>();
+        collidableGameObjects.addAll(gameObjectManager.getHostages());
+    }*/
+
     private void spawnHostages() {
         LinkedList<Hostage> hostages = gameObjectManager.getHostages();
+        ArrayList<CollidableGameObject> collidableGameObjects = new ArrayList<>();
+        collidableGameObjects.add(gameObjectManager.getChopper());
+        collidableGameObjects.add(gameObjectManager.getBase());
+
         boolean barracksEmpty = false;
         if (gameObjectManager.getHostages().size() == 16){
             barracksEmpty = true;
@@ -104,13 +125,15 @@ public class GamePlayManager {
 
     private void spawnAndDestroyJets(){
         LinkedList<Jet> jets = gameObjectManager.getJets();
+        ArrayList<CollidableGameObject> collidableGameObjects = new ArrayList<>();
+        collidableGameObjects.add(gameObjectManager.getChopper());
         if (gameObjectManager.getJets().size() > 5){
             gameObjectManager.getJets().removeFirst();
         }
 
         if(gameView.timerExpired("spawnJet", "GamePlayManager")){
             gameView.setTimer("spawnJet", "GamePlayManager", 3000);
-            Jet jet = new Jet(gameView);
+            Jet jet = new Jet(gameView, gameObjectManager.getChopper(), collidableGameObjects);
             jet.setGamePlayManager(this);
             jets.add(jet);
         }
@@ -130,13 +153,15 @@ public class GamePlayManager {
 
     private void spawnAndDestroyTanks(){
         LinkedList<Tank> tanks = gameObjectManager.getTanks();
+        ArrayList<CollidableGameObject> collidableGameObjects = new ArrayList<>();
+        collidableGameObjects.add(gameObjectManager.getChopper());
         if (gameObjectManager.getTanks().size() > 5){
             gameObjectManager.getTanks().removeFirst();
         }
 
         if(gameView.timerExpired("spawnTank", "GamePlayManager")){
             gameView.setTimer("spawnTank", "GamePlayManager", 3000);
-            Tank tank = new Tank(gameView);
+            Tank tank = new Tank(gameView, collidableGameObjects);
             tank.setGamePlayManager(this);
             tanks.add(tank);
         }
@@ -155,6 +180,9 @@ public class GamePlayManager {
     }
 
     private void spawnAndDestroyDrones(){
+        ArrayList<CollidableGameObject> collidableGameObjects = new ArrayList<>();
+        collidableGameObjects.add(gameObjectManager.getChopper());
+        // add base to collide with?
         LinkedList<Drone> drones = gameObjectManager.getDrones();
         if (gameObjectManager.getDrones().size() > 5){
             gameObjectManager.getDrones().removeFirst();
@@ -162,7 +190,7 @@ public class GamePlayManager {
 
         if(gameView.timerExpired("spawnDrone", "GamePlayManager")){
             gameView.setTimer("spawnDrone", "GamePlayManager", 5000);
-            Drone drone = new Drone(gameView);
+            Drone drone = new Drone(gameView, gameObjectManager.getChopper(), collidableGameObjects);
             drone.setGamePlayManager(this);
             drones.add(drone);
         }
@@ -186,7 +214,12 @@ public class GamePlayManager {
      * @param startPosition The position to spawn the shot from.
      */
     public void shootChopperShot(Position startPosition){
-        ChopperShot chopperShot = new ChopperShot(gameView, gameObjectManager.getChopper(), gameObjectManager);
+        ArrayList<CollidableGameObject> collidableGameObjects = new ArrayList<>();
+        collidableGameObjects.addAll(gameObjectManager.getHostages());
+        collidableGameObjects.addAll(gameObjectManager.getJets());
+        collidableGameObjects.addAll(gameObjectManager.getTanks());
+        collidableGameObjects.addAll(gameObjectManager.getDrones());
+        ChopperShot chopperShot = new ChopperShot(gameView, gameObjectManager.getChopper(), gameObjectManager,collidableGameObjects);
         chopperShot.getPosition().x = startPosition.x;
         chopperShot.getPosition().y = startPosition.y;
         chopperShot.setGamePlayManager(this);
@@ -199,13 +232,16 @@ public class GamePlayManager {
      * @param startPosition The position to spawn the shot from.
      */
     public void shootJetShot(Position startPosition){
-        JetShot jetShot1 = new JetShot(gameView);
+        ArrayList<CollidableGameObject> collidableGameObjects = new ArrayList<>();
+        collidableGameObjects.addAll(gameObjectManager.getHostages());
+        collidableGameObjects.add(gameObjectManager.getChopper());
+        JetShot jetShot1 = new JetShot(gameView, collidableGameObjects);
         jetShot1.getPosition().x = startPosition.x;
         jetShot1.getPosition().y = startPosition.y+35;
         jetShot1.setGamePlayManager(this);
         gameObjectManager.getJetShots().add(jetShot1);
 
-        JetShot jetShot2 = new JetShot(gameView);
+        JetShot jetShot2 = new JetShot(gameView, collidableGameObjects);
         jetShot2.getPosition().x = startPosition.x;
         jetShot2.getPosition().y = startPosition.y;
         jetShot2.setGamePlayManager(this);
@@ -218,7 +254,10 @@ public class GamePlayManager {
      * @param startPosition The position to spawn the shot from.
      */
     public void shootTankShot(Position startPosition) {
-        TankShot tankShot = new TankShot(gameView);
+        ArrayList<CollidableGameObject> collidableGameObjects = new ArrayList<>();
+        collidableGameObjects.addAll(gameObjectManager.getHostages());
+        collidableGameObjects.add(gameObjectManager.getChopper());
+        TankShot tankShot = new TankShot(gameView, collidableGameObjects);
         tankShot.getPosition().x = startPosition.x;
         tankShot.getPosition().y = startPosition.y;
         tankShot.setGamePlayManager(this);
@@ -239,5 +278,19 @@ public class GamePlayManager {
             gameObjectManager.getTankShots().remove(shot);
         }
     }
+
+    /**Removes a Hostage from the list of game objects, so it will be not be displayed on the window anymore.
+     *
+     * @param hostage Object to be removed from the window.
+     */
+    public void destroy(Hostage hostage){
+        gameObjectManager.getHostages().remove(hostage);
+    }
+
+    /**
+     * Removes a Jet from the list of game objects, so it will be not be displayed on the window anymore.
+     * @param jet Object to be removed from the window.
+     */
+    public void destroy(Jet jet) {gameObjectManager.getJets().remove(jet);}
 
 }

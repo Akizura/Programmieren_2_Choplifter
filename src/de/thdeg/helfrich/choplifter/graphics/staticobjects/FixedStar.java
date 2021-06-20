@@ -6,6 +6,9 @@ import de.thdeg.helfrich.choplifter.graphics.basics.Position;
 import java.awt.*;
 import java.util.Random;
 
+/**
+ * Represents the fixed stars in the game
+ */
 public class FixedStar extends Background {
 
     private final static String FIXSTAR =
@@ -42,6 +45,10 @@ public class FixedStar extends Background {
     private String objectID;
     private Random random;
 
+    /**
+     * Creats a FixedStar
+     * @param gameView Window to show the gameobject on
+     */
     public FixedStar(GameView gameView){
         super(gameView);
         this.random = new Random();
@@ -134,6 +141,10 @@ public class FixedStar extends Background {
         }*/
     }
 
+    /**
+     * Gettermethod fpr the ObjectID
+     * @return objectID
+     */
     public String getObjectID() {
         return objectID;
     }
